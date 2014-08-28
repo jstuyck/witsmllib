@@ -15,13 +15,24 @@ and retains the Apache 2.0 open source license used by the jwitsml project.
 
 	
 	|	Class						| CRUD |
-	|	WitsmlBhaRun				|  R   | 
-	|	WitsmlCementJob				|  R   | 
-	|  	WitsmlCommonData			|  R   |
+	|	WitsmlBhaRun				|  R   |
+	|	WitsmlCementJob				|  R   |
+	|	WitsmlCommonData			|  R   |
 	|	WitsmlFluidsReport			|  R   |
 	|	WitsmlFormationMarker		|  R   |
 	|	WitsmlInterval				|  R   |
 	|	WitsmlLocation				|  R   |
 	|	WitsmlLog					|  R   |
 	|	WitsmlLogCurve				|  R   |
+	|	WitsmlMessage				|  R   |
+	|	WitsmlMudLog				|  R   |
+	|	WitsmlRealtime				|  R   |
+	|	WitsmlRealtimeChannel		|  R   |
+	|	WitsmlRig					|  R   |
+	|	WitsmlRisk					|  R   |
+	|	WitsmlTarget				|  R   |
+	|	WitsmlTrajectory			|  R   |
+	|	WitsmlTrajectoryStation		|  R   |
+	|	WitsmlWell					|  R   |
+	|	WitsmlWellbore				|  R   |
 	
