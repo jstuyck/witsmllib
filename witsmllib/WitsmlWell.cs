@@ -1,39 +1,16 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
-
-    //import java.util.List;
-    //import java.util.Date;
-
-    /**
-     * Java representation of a WITSML "well".
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
     public class WitsmlWell : WitsmlObject
     {
-        /** The WITSML type name */
+
         private static String WITSML_TYPE = "well";
 
         protected String legalName; // nameLegal
         protected String licenseNumber; // numLicense
         protected String wellNumber; // numGovt
-        protected DateTime?  licenseIssueTime; // dTimLicense
+        protected DateTime? licenseIssueTime; // dTimLicense
         protected String field; // field
         protected String country; // country
         protected String state; // state
@@ -50,8 +27,8 @@ namespace witsmllib
         protected String purpose; // purposeWell
         protected String fluidType; // fluidWell (1.3+)
         protected String flowDirection; // directionWell (1.3+)
-        protected DateTime?  spudTime; // dTimSpud
-        protected DateTime?  pluggedTime; // dTimPa
+        protected DateTime? spudTime; // dTimSpud
+        protected DateTime? pluggedTime; // dTimPa
         protected Value wellHeadElevation; // dtmPermToWellhead (1.2) wellheadElevation(1.3+)
         protected Value groundElevation; // groundElevation
         protected Value waterDepth; // waterDepth
@@ -66,9 +43,9 @@ namespace witsmllib
          */
         protected WitsmlWell(WitsmlServer server, String id, String name,
                              WitsmlObject parent)
-        
-            :base(server, WITSML_TYPE, id, name, parent, null)
-        {}
+
+            : base(server, WITSML_TYPE, id, name, parent, null)
+        { }
 
         public String getLegalName()
         {
@@ -80,236 +57,222 @@ namespace witsmllib
             return licenseNumber;
         }
 
-        public DateTime?  getLicenseIssueTime()
+        public DateTime? getLicenseIssueTime()
         {
             return licenseIssueTime;
         }
 
-        /**
-         * Get field of this well.
-         *
-         * @return  Field of this well.
-         */
+        /// <summary>
+        /// Get field for this well.
+        /// </summary>
+        /// <returns>Field for this well</returns>
         public String getField()
         {
             return field;
         }
 
-        /**
-         * Get country of this well.
-         *
-         * @return  Country of this well.
-         */
+        /// <summary>
+        /// Get Country for this well.
+        /// </summary>
+        /// <returns>country for this well.</returns>
         public String getCountry()
         {
             return country;
         }
 
-        /**
-         * Get government number of this well.
-         *
-         * @return  Government number of this well.
-         */
+        /// <summary>
+        ///  Get government number of this well.
+        /// </summary>
+        /// <returns> Government number of this well.</returns>
         public String getWellNumber()
         {
             return wellNumber;
         }
 
-        /**
-         * Get state of this well.
-         *
-         * @return  State of this well.
-         */
+        /// <summary>
+        /// Get state of this well.
+        /// </summary>
+        /// <returns>State of this well.</returns>
         public String getState()
         {
             return state;
         }
 
-        /**
-         * Get county of this well.
-         *
-         * @return  County of this well.
-         */
+        /// <summary>
+        ///  Get county of this well.
+        /// </summary>
+        /// <returns>County of this well.</returns>
         public String getCounty()
         {
             return county;
         }
 
-        /**
-         * Get region of this well.
-         *
-         * @return  Region of this well. May be null.
-         */
+        /// <summary>
+        /// Get region of this well.
+        /// </summary>
+        /// <returns>Region of this well.</returns>
         public String getRegion()
         {
             return region;
         }
 
-        /**
-         * Get district of this well.
-         *
-         * @return  District of this well.
-         */
+        /// <summary>
+        /// Get district of this well.
+        /// </summary>
+        /// <returns>District of this well.</returns>
         public String getDistrict()
         {
             return district;
         }
 
-        /**
-         * Get block of this well.
-         *
-         * @return  Block of this well.
-         */
+        /// <summary>
+        ///  Get block of this well.
+        /// </summary>
+        /// <returns> Block of this well.</returns>
         public String getBlock()
         {
             return block;
         }
 
-        /**
-         * Return time zone identifier of this well.
-         *
-         * @return Time zone identifier of this well. May be null.
-         */
+        /// <summary>
+        /// Return time zone identifier of this well.
+        /// </summary>
+        /// <returns>Time zone identifier of this well. May be null.</returns>
         public String getTimeZone()
         {
             return timeZone;
         }
 
-        /**
-         * Get operator of this well.
-         *
-         * @return  Operator of this well.
-         */
+        /// <summary>
+        /// Get operator of this well.
+        /// </summary>
+        /// <returns>Operator of this well.</returns>
         public String getOperator()
         {
             return @operator;
         }
 
+        /// <summary>
+        /// Get Operator Division of this well.
+        /// </summary>
+        /// <returns>Operator Division of this well.</returns>
         public String getOperatorDivision()
         {
             return operatorDivision;
         }
 
+        /// <summary>
+        /// Get Operator Interest Share.
+        /// </summary>
+        /// <returns>Operator Interest Share.</returns>
         public Value getOperatorInterestShare()
         {
             return operatorInterestShare;
         }
 
-        /**
-         * Get API number of this well.
-         *
-         * @return  API number of this well.
-         */
+        /// <summary>
+        /// Get API number of this well.
+        /// </summary>
+        /// <returns>API number of this well.</returns>
         public String getApiNumber()
         {
             return apiNumber;
         }
 
-        /**
-         * Get status of this well.
-         *
-         * @return  Status of this well.
-         */
+        /// <summary>
+        /// Get Status of this well.
+        /// </summary>
+        /// <returns>Status of this well.</returns>
         public String getStatus()
         {
             return status;
         }
 
-        /**
-         * Get purpose of this well.
-         *
-         * @return  Purpose of this well.
-         */
+        /// <summary>
+        /// Get purpose of this well.
+        /// </summary>
+        /// <returns>Purspose of this well.</returns>
         public String getPurpose()
         {
             return purpose;
         }
 
-        /**
-         * Get fluid type of this well.
-         *
-         * @return  Fluid type of this well. May be null.
-         */
+        /// <summary>
+        /// Get Fluid Type of this well.
+        /// </summary>
+        /// <returns>Fluid Type of this well.</returns>
         public String getFluidType()
         {
             return fluidType;
         }
 
-        /**
-         * Get flow direction of this well.
-         *
-         * @return  Flow direction of this well. May be null.
-         */
+        /// <summary>
+        /// Get flow direction of this well.
+        /// </summary>
+        /// <returns>Flow direction of this well. May be null</returns>
         public String getFlowDirection()
         {
             return flowDirection;
         }
 
-        /**
-         * Get spud time of this well.
-         *
-         * @return  Spud time of this well.
-         */
-        public DateTime?  getSpudTime()
+        /// <summary>
+        /// Get spud time of this well.
+        /// </summary>
+        /// <returns>Spud time of this well.</returns>
+        public DateTime? getSpudTime()
         {
             return spudTime; // spudTime != null ? new Date(spudTime.getTime()) : null;
         }
 
-        /**
-         * Get plugged time of this well.
-         *
-         * @return  Plugged time of this well.
-         */
-        public DateTime?  getPluggedTime()
+        /// <summary>
+        /// Get plugged time of this well.
+        /// </summary>
+        /// <returns>Plugged time of this well.</returns>
+        public DateTime? getPluggedTime()
         {
             return pluggedTime; // pluggedTime != null ? new Date(pluggedTime.getTime()) : null;
         }
 
-        /**
-         * Get well head elevation  of this well.
-         *
-         * @return  Well head elevation of this well.
-         */
+        /// <summary>
+        /// Get well head elevation of this well.
+        /// </summary>
+        /// <returns>Well head elevation of this well.</returns>
         public Value getWellHeadElevation()
         {
             return wellHeadElevation;
         }
 
-        /**
-         * Get datum of this well.
-         *
-         * @return  Datum of this well.
-         */
+        /// <summary>
+        /// Get datum of this well.
+        /// </summary>
+        /// <returns>Datum of this well.</returns>
         public String getDatum()
         {
             return datum;
         }
 
-        /**
-         * Get ground elevation of this well.
-         *
-         * @return  Ground elevation of this well.
-         */
+        /// <summary>
+        /// Get ground elevation of this well.
+        /// </summary>
+        /// <returns>Ground elevation of this well.</returns>
         public Value getGroundElevation()
         {
             return groundElevation;
         }
 
-        /**
-         * Get water depth of this well.
-         *
-         * @return  Water depth of this well. May be null.
-         */
+        /// <summary>
+        /// Get water depth of this well.
+        /// </summary>
+        /// <returns>Water depth of this well.</returns>
         public Value getWaterDepth()
         {
             return waterDepth;
         }
 
-        /**
-         * Return location of this well.
-         *
-         * @return  Location of this well. May be null.
-         */
+        /// <summary>
+        /// Get the location of this well.
+        /// </summary>
+        /// <returns>Location of this well.</returns>
         public WitsmlLocation getLocation()
         {
             return location;

@@ -441,7 +441,7 @@ namespace witsmllib
         /// <param name="parentIds">Parent IDs, closest first. Non-null</param>
         /// <returns>The requested instance, or null if not found.</returns>
         public T getOne<T>(WitsmlQuery witsmlQuery, String id, params String[] parentIds) where T : WitsmlObject
-        { 
+        {
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -530,7 +530,7 @@ namespace witsmllib
         private static String[] getIds(WitsmlObject instance)
         {
             if (instance == null)
-                throw new ArgumentException("instance cannot be null"); 
+                throw new ArgumentException("instance cannot be null");
             List<String> ids = new List<String>();
 
             WitsmlObject p = instance;
@@ -555,7 +555,7 @@ namespace witsmllib
         private List<T> get<T>(WitsmlQuery witsmlQuery,
                                 String id, WitsmlObject parent,
                                 params String[] parentIds) where T : WitsmlObject
-        { 
+        {
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -577,13 +577,13 @@ namespace witsmllib
             else
                 parentId = new String[] { "" };
 
-            long requestTime = DateTime.Now.Ticks; 
+            long requestTime = DateTime.Now.Ticks;
 
             String queryXml = "";
             String responseXml = null;
 
             String type = WitsmlServer.getWitsmlType(typeof(T));
-         
+
             var actualClass = getActualClass(version, type);
 
             try
@@ -704,7 +704,7 @@ namespace witsmllib
         /// <param name="witsmlObject">Instance to update. Non-null.</param>
         /// <param name="witsmlQuery"> Query to apply. Non-null.</param>
         public void update(WitsmlObject witsmlObject, WitsmlQuery witsmlQuery)
-        { 
+        {
             if (witsmlObject == null)
                 throw new ArgumentException("witsmlObject cannot be null");
 
