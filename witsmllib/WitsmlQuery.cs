@@ -1,66 +1,46 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using System.IO;
+using System.Text;
+using System.Collections.Generic;
+using witsmllib.util;
+using System.Xml.Linq;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
-
-    /**
-     * Class for controlling the WITSML queries.
-     * <p>
-     * The WitsmlQuery instance is used to select which elements that should be
-     * included in a server query and to set query constraints.
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Collections.Generic;
-    using witsmllib.util;
-    using System.Xml.Linq;
+    /// <summary>
+    /// Class for controlling the WITSML queries.
+    /// The WitsmlQuery instance is used to select which elements that should be
+    /// included in a server query and to set query constraints.
+    /// </summary>
     public sealed class WitsmlQuery
     {
 
         /** Elements to explicitly include. */
-        private  List<String> includedElements = new List<String>();
+        private List<String> includedElements = new List<String>();
 
         /** Elements to explicitly exclude. */
-        private  List<String> excludedElements = new List<String>();
+        private List<String> excludedElements = new List<String>();
 
         /** Constraints to apply. Each entry is element of two: element,value. */
-        private  List<ElementConstraint> elementConstraints = new List<ElementConstraint>();
+        private List<ElementConstraint> elementConstraints = new List<ElementConstraint>();
 
         /** Constraints to apply. Each entry is element of two: element,value. */
-        private  List<AttributeConstraint> attributeConstraints = new List<AttributeConstraint>();
+        private List<AttributeConstraint> attributeConstraints = new List<AttributeConstraint>();
 
-        /**
-         * Create a default WITSML query containing all the elements
-         * specified by the given WITSML type and without any constraints.
-         */
+        /// <summary>
+        /// Create a default WITSML query containing all the elements 
+        /// specified by the given WITSML type and without any constraints.
+        /// </summary>
         public WitsmlQuery()
         {
             // Nothing
         }
 
-        /**
-         * Explicitly include the specified element from the query. As soon
-         * elements are explicitly included, no elements are included be default.
-         *
-         * @param elementName  Name of element to include. Non-null.
-         * @throws  ArgumentException  If elementName is null.
-         */
+        /// <summary>
+        /// Explicitly include the specified element from the query. As soon
+        /// elements are explicitly included, no elements are included be default.
+        /// </summary>
+        /// <param name="elementName">Name of element to include. Non-null.</param>
         public void includeElement(String elementName)
         {
             if (elementName == null)
@@ -69,12 +49,10 @@ namespace witsmllib
             includedElements.Add(elementName);
         }
 
-        /**
-         * Explicitly exclude the specified element from the query.
-         *
-         * @param elementName  Name of element to exclude. Non-null.
-         * @throws  ArgumentException  If elementName is null.
-         */
+        /// <summary>
+        /// Explicitly exclude the specified element from the query.
+        /// </summary>
+        /// <param name="elementName">Name of element to exclude. Non-null.</param>
         public void excludeElement(String elementName)
         {
             if (elementName == null)
@@ -83,16 +61,14 @@ namespace witsmllib
             excludedElements.Add(elementName);
         }
 
-        /**
-         * Add the specified element constraint to this query.
-         *
-         * The same element may be constrained more than once, resulting in a
-         * deep duplication of the element with the new constraint applied.
-         *
-         * @param elementName  Name of element to constrain. Non-null.
-         * @param value        The element constraint. May be null to indicate empty.
-         * @throws ArgumentException  If elementName or value is null.
-         */
+        /// <summary>
+        /// Add the specified element constraint to this query.
+        /// 
+        /// The same element may be constrained more than once, resulting in a
+        /// deep duplication of the element with the new constraint applied.
+        /// </summary>
+        /// <param name="elementName">Name of element to constrain. Non-null.</param>
+        /// <param name="value">The element constraint. May be null to indicate empty.</param>
         public void addElementConstraint(String elementName, Object value)
         {
             if (elementName == null)
@@ -101,14 +77,12 @@ namespace witsmllib
             elementConstraints.Add(new ElementConstraint(elementName, value));
         }
 
-        /**
-         * Add the specified attribute constraint to this query.
-         *
-         * @param elementName    Name of element to constrain. Non-null.
-         * @param attributeName  Name of attribute of element to constrain. Non-null.
-         * @param value          The attribute constraint. May be null it indicate empty.
-         * @throws ArgumentException  If elementName or attributeName is null.
-         */
+        /// <summary>
+        /// Add the specified attribute constraint to this query.
+        /// </summary>
+        /// <param name="elementName">Name of element to constrain. Non-null.</param>
+        /// <param name="attributeName">Name of attribute of element to constrain. Non-null.</param>
+        /// <param name="value">The attribute constraint. May be null it indicate empty.</param>
         public void addAttributeConstraint(String elementName, String attributeName,
                                            Object value)
         {
@@ -121,42 +95,39 @@ namespace witsmllib
             attributeConstraints.Add(new AttributeConstraint(elementName, attributeName, value));
         }
 
-        /**
-         * Find element with the specified name.
-         *
-         * @param root   Root element of where to start the search. Non-null.
-         * @param name   Name of element to find. Non-null.
-         * @return
-         */
+        /// <summary>
+        /// Find element with the specified name.
+        /// </summary>
+        /// <param name="root">Root element of where to start the search. Non-null.</param>
+        /// <param name="name">Name of element to find. Non-null.</param>
+        /// <returns></returns>
         private static XElement findElement(XElement root, String name)
         {
-            //Debug.Assert(root != null : "root cannot be null";
-            //Debug.Assert(name != null : "name cannot be null";
-
-            //for (var i = root.getDescendants(new ElementFilter()); i.hasNext(); )
-            foreach(var i in root.Descendants())
+            if (root == null)
+                throw new ArgumentException("root cannot be null");
+            if (name == null)
+                throw new ArgumentException("name cannot be null");
+           
+            foreach (XElement element in root.Descendants())
             {
-                XElement element = (XElement)i; //.next();
                 if (element.Name.Equals(name))
                     return element;
             }
-
-            // Not found
             return null;
         }
 
-        /**
-         * Check if a certain element should be included or not.
-         *
-         * @param element  XElement to check. Non-null.
-         * @return         True if the element should be included, false otherwise.
-         */
+        /// <summary>
+        /// Check if a certain element should be included or not.
+        /// </summary>
+        /// <param name="element">XElement to check. Non-null.</param>
+        /// <returns>True if the element should be included, false otherwise.</returns>
         private bool shouldInclude(XElement element)
         {
-            //Debug.Assert(element != null : "element cannot be null";
+            if (element == null)
+                throw new ArgumentException("element cannot be null");
 
             // XElement is included by default if none is explicitly included
-            bool isDefaultIncluded = includedElements.Count ==0;// .IsEmpty();
+            bool isDefaultIncluded = includedElements.Count == 0;// .IsEmpty();
 
             // XElement is included if itself or any parent is explicitly included
             bool isExplicitlyIncluded = false;
@@ -183,17 +154,16 @@ namespace witsmllib
             return isIncluded;
         }
 
-        /**
-         * Apply inclusions as specified in includedElements and
-         * excludedElements to the document rooted at the specified root
-         * element.
-         *
-         * @param root  Root element of tree to apply inclusions/exclusions to.
-         *              Non-null.
-         */
+        /// <summary>
+        /// Apply inclusions as specified in includedElements and
+        /// excludedElements to the document rooted at the specified root
+        ///  element.
+        /// </summary>
+        /// <param name="root">Root element of tree to apply inclusions/exclusions to. Non-null.</param>
         private void applyInclusions(XElement root)
         {
-            //Debug.Assert(root != null : "root cannot be null";
+            if (root == null)
+                throw new ArgumentException("root cannot be null");
 
             // Make a set of all elements
             HashSet<XElement> elementsToDelete = new HashSet<XElement>();
@@ -202,10 +172,8 @@ namespace witsmllib
 
             // Loop all elements, and possibly remove from the delete set
             //for (var i = root.getDescendants(new ElementFilter()); i.hasNext(); )
-            foreach(var i in root.Descendants())
+            foreach (XElement element in root.Descendants())
             {
-                XElement element = (XElement)i;
-
                 // If element should remain, include it and all its parents
                 if (shouldInclude(element))
                 {
@@ -334,14 +302,14 @@ namespace witsmllib
             {
                 // Programming error
                 //exception.printStackTrace();
-                Console.Write(exception.StackTrace); 
+                Console.Write(exception.StackTrace);
                 //Debug.Assert(false : "Unable to parse XML document: " + queryXml;
                 return null;
             }
         }
 
         /** {@inheritDoc} */
-        
+
         public override String ToString()
         {
             StringBuilder s = new StringBuilder();
@@ -373,10 +341,10 @@ namespace witsmllib
         private /*static*/ class ElementConstraint
         {
             /** Name of element being constrained. Non-null. */
-            protected  String elementName;
+            protected String elementName;
 
             /** Value to constrain element with. May be null for unconstrined. */
-            protected  Object value;
+            protected Object value;
 
             /**
              * Create a new element constraint.
@@ -423,8 +391,8 @@ namespace witsmllib
             }
 
             /** {@inheritDoc} */
-            
-            public override  String ToString()
+
+            public override String ToString()
             {
                 return "<" + elementName + ">" + getText() + "</" + elementName + ">";
             }
@@ -450,9 +418,9 @@ namespace witsmllib
              *                      unconstrined.
              */
             internal AttributeConstraint(String elementName, String attributeName, Object value)
-            :base(elementName, value)
+                : base(elementName, value)
             {
-                
+
 
                 //Debug.Assert(elementName != null : "elementName cannot be null";
                 //Debug.Assert(attributeName != null : "attributeName cannot be null";
@@ -471,8 +439,8 @@ namespace witsmllib
             }
 
             /** {@inheritDoc} */
-            
-            public override  String ToString()
+
+            public override String ToString()
             {
                 return "<" + elementName + " " + attributeName + "=" + getText() + "/>";
             }
