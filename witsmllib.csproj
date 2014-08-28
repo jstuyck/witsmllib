@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{500B2067-CCFF-401E-8B9C-460FE7C69233}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>witsmllib</RootNamespace>
+    <AssemblyName>witsmllib</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="witsmllib\Capabilities.cs" />
+    <None Include="witsmllib\WitsmlServer.cs-old" />
+    <Compile Include="witsmllib\FunctionCapability.cs" />
+    <Compile Include="witsmllib\units\WitsmlQuantity.cs" />
+    <Compile Include="witsmllib\units\WitsmlUnit.cs" />
+    <Compile Include="witsmllib\units\WitsmlUnitManager.cs" />
+    <Compile Include="witsmllib\util\ISO8601DateParser.cs" />
+    <Compile Include="witsmllib\util\XmlUtil.cs" />
+    <Compile Include="witsmllib\v120\WitsmlBhaRun.cs" />
+    <Compile Include="witsmllib\v120\WitsmlCementJob.cs" />
+    <Compile Include="witsmllib\v120\WitsmlCommonData.cs" />
+    <Compile Include="witsmllib\v120\WitsmlFluidsReport.cs" />
+    <Compile Include="witsmllib\v120\WitsmlFormationMarker.cs" />
+    <Compile Include="witsmllib\v120\WitsmlInterval.cs" />
+    <Compile Include="witsmllib\v120\WitsmlLocation.cs" />
+    <Compile Include="witsmllib\v120\WitsmlLog.cs" />
+    <Compile Include="witsmllib\v120\WitsmlLogCurve.cs" />
+    <Compile Include="witsmllib\v120\WitsmlMessage.cs" />
+    <Compile Include="witsmllib\v120\WitsmlMudLog.cs" />
+    <Compile Include="witsmllib\v120\WitsmlRealtime.cs" />
+    <Compile Include="witsmllib\v120\WitsmlRealtimeChannel.cs" />
+    <Compile Include="witsmllib\v120\WitsmlRig.cs" />
+    <Compile Include="witsmllib\v120\WitsmlTarget.cs" />
+    <Compile Include="witsmllib\v120\WitsmlTrajectory.cs" />
+    <Compile Include="witsmllib\v120\WitsmlTrajectoryStation.cs" />
+    <Compile Include="witsmllib\v120\WitsmlWell.cs" />
+    <Compile Include="witsmllib\v120\WitsmlWellbore.cs" />
+    <Compile Include="witsmllib\v131\WitsmlBhaRun.cs" />
+    <Compile Include="witsmllib\v131\WitsmlCementJob.cs" />
+    <Compile Include="witsmllib\v131\WitsmlCommonData.cs" />
+    <Compile Include="witsmllib\v131\WitsmlFluidsReport.cs" />
+    <Compile Include="witsmllib\v131\WitsmlFormationMarker.cs" />
+    <Compile Include="witsmllib\v131\WitsmlInterval.cs" />
+    <Compile Include="witsmllib\v131\WitsmlLocation.cs" />
+    <Compile Include="witsmllib\v131\WitsmlLog.cs" />
+    <Compile Include="witsmllib\v131\WitsmlLogCurve.cs" />
+    <Compile Include="witsmllib\v131\WitsmlMessage.cs" />
+    <Compile Include="witsmllib\v131\WitsmlMudLog.cs" />
+    <Compile Include="witsmllib\v131\WitsmlRealtime.cs" />
+    <Compile Include="witsmllib\v131\WitsmlRealtimeChannel.cs" />
+    <Compile Include="witsmllib\v131\WitsmlRig.cs" />
+    <Compile Include="witsmllib\v131\WitsmlRisk.cs" />
+    <Compile Include="witsmllib\v131\WitsmlTarget.cs" />
+    <Compile Include="witsmllib\v131\WitsmlTrajectory.cs" />
+    <Compile Include="witsmllib\v131\WitsmlTrajectoryStation.cs" />
+    <Compile Include="witsmllib\v131\WitsmlWell.cs" />
+    <Compile Include="witsmllib\v131\WitsmlWellbore.cs" />
+    <Compile Include="witsmllib\v140\WitsmlCommonData.cs" />
+    <Compile Include="witsmllib\v140\WitsmlInterval.cs" />
+    <Compile Include="witsmllib\v140\WitsmlLocation.cs" />
+    <Compile Include="witsmllib\v140\WitsmlLog.cs" />
+    <Compile Include="witsmllib\v140\WitsmlLogCurve.cs" />
+    <Compile Include="witsmllib\v140\WitsmlMudLog.cs" />
+    <Compile Include="witsmllib\v140\WitsmlRealtime.cs" />
+    <Compile Include="witsmllib\v140\WitsmlRealtimeChannel.cs" />
+    <Compile Include="witsmllib\v140\WitsmlTrajectory.cs" />
+    <Compile Include="witsmllib\v140\WitsmlTrajectoryStation.cs" />
+    <Compile Include="witsmllib\v140\WitsmlWell.cs" />
+    <Compile Include="witsmllib\v140\WitsmlWellbore.cs" />
+    <Compile Include="witsmllib\Value.cs" />
+    <Compile Include="witsmllib\WitsmlAccessEvent.cs" />
+    <Compile Include="witsmllib\WitsmlAccessListener.cs" />
+    <Compile Include="witsmllib\WitsmlBhaRun.cs" />
+    <Compile Include="witsmllib\WitsmlCementJob.cs" />
+    <Compile Include="witsmllib\WitsmlCommonData.cs" />
+    <Compile Include="witsmllib\WitsmlFluidsReport.cs" />
+    <Compile Include="witsmllib\WitsmlFormationMarker.cs" />
+    <Compile Include="witsmllib\WitsmlInterval.cs" />
+    <Compile Include="witsmllib\WitsmlLocation.cs" />
+    <Compile Include="witsmllib\WitsmlLog.cs" />
+    <Compile Include="witsmllib\WitsmlLogCurve.cs" />
+    <Compile Include="witsmllib\WitsmlMessage.cs" />
+    <Compile Include="witsmllib\WitsmlMudLog.cs" />
+    <Compile Include="witsmllib\WitsmlObject.cs" />
+    <Compile Include="witsmllib\WitsmlParseException.cs" />
+    <Compile Include="witsmllib\WitsmlQuery.cs" />
+    <Compile Include="witsmllib\WitsmlRealtime.cs" />
+    <Compile Include="witsmllib\WitsmlRealtimeChannel.cs" />
+    <Compile Include="witsmllib\WitsmlResponse.cs" />
+    <Compile Include="witsmllib\WitsmlRig.cs" />
+    <Compile Include="witsmllib\WitsmlRisk.cs" />
+    <Compile Include="witsmllib\WitsmlServer.cs" />
+    <Compile Include="witsmllib\WitsmlServerException.cs" />
+    <Compile Include="witsmllib\WitsmlStoreAccessor.cs" />
+    <Compile Include="witsmllib\WitsmlTarget.cs" />
+    <Compile Include="witsmllib\WitsmlTrajectory.cs" />
+    <Compile Include="witsmllib\WitsmlTrajectoryStation.cs" />
+    <Compile Include="witsmllib\WitsmlVersion.cs" />
+    <Compile Include="witsmllib\WitsmlWell.cs" />
+    <Compile Include="witsmllib\WitsmlWellbore.cs" />
+    <Compile Include="witsmllib\WSRef\Reference.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="witsmllib\units\witsmlUnitDict.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
