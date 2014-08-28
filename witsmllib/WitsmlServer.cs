@@ -543,30 +543,19 @@ namespace witsmllib
             return ids.ToArray();
         }
 
-        /**
-         * Return instances from this WITSML server.
-         *
-         * @param baseClass  Class of instances to get. Non-null.
-         * @param witsmlQuery  Query to apply. Non-null.
-         * @param id           ID of instance to get, or null to indicate all.
-         * @param parent       Parent object. Null to indicate root-level or if
-         *                     parent IDs are specified instead.
-         * @param parentIds    ID of parent(s). Closest parent first. Null to indicate
-         *                     root-level or if parent instance is specified instead.
-         * @throws ArgumentException  If baseClass or witsmlQuery is null, or
-         *                     If bot parent and parentIds are non-null.
-         * @throws WitsmlServerException  If the server access failed for some reason.
-         */
-        //private <T> List<T> get(Class<T> baseClass, 
-        private List<T> get<T>(/*T baseClass, */
-                                WitsmlQuery witsmlQuery,
+        /// <summary>
+        /// Return instances from this WITSML server.
+        /// </summary>
+        /// <typeparam name="T">Type of the Class to return. Non-null.</typeparam>
+        /// <param name="witsmlQuery">Query to apply. Non-null.</param>
+        /// <param name="id">ID of instance to get, or null to indicate all.</param>
+        /// <param name="parent">arent object. Null to indicate root-level or if  parent IDs are specified instead.</param>
+        /// <param name="parentIds"> ID of parent(s). Closest parent first. Null to indicate root-level or if parent instance is specified instead.</param>
+        /// <returns>List of Requested instances. Never null.</returns>
+        private List<T> get<T>(WitsmlQuery witsmlQuery,
                                 String id, WitsmlObject parent,
                                 params String[] parentIds) where T : WitsmlObject
-        { //throws WitsmlServerException {
-
-            // if (baseClass == null)
-            //     throw new ArgumentException("baseClass cannot be null");
-
+        { 
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -588,13 +577,13 @@ namespace witsmllib
             else
                 parentId = new String[] { "" };
 
-            long requestTime = DateTime.Now.Ticks; // System.currentTimeMillis();
+            long requestTime = DateTime.Now.Ticks; 
 
             String queryXml = "";
             String responseXml = null;
 
             String type = WitsmlServer.getWitsmlType(typeof(T));
-            //Class<? extends WitsmlObject> actualClass = getActualClass(version, type);
+         
             var actualClass = getActualClass(version, type);
 
             try
@@ -709,27 +698,13 @@ namespace witsmllib
 
         }
 
-        /**
-         * Update the specified WITSML instance by making a new fetch
-         * from the server.
-         * <p>
-         * Example:
-         * <pre>
-         *   // Specify bulk-data
-         *   WitsmlQuery query = new WitsmlQuery();
-         *   query.includeElement("logData");
-         *
-         *   // Get bulk data for existing log
-         *   witsmlWerver.update(log, query);
-         * </pre>
-         *
-         * @param witsmlObject  Instance to update. Non-null.
-         * @param witsmlQuery   Query to apply. Non-null.
-         * @throws ArgumentException  If any of the arguments are null.
-         * @throws WitsmlServerException  If the server access failed for some reason.
-         */
+        /// <summary>
+        /// Update the specified WITSML instance by making a new fetch from the server.
+        /// </summary>
+        /// <param name="witsmlObject">Instance to update. Non-null.</param>
+        /// <param name="witsmlQuery"> Query to apply. Non-null.</param>
         public void update(WitsmlObject witsmlObject, WitsmlQuery witsmlQuery)
-        { //throws WitsmlServerException {
+        { 
             if (witsmlObject == null)
                 throw new ArgumentException("witsmlObject cannot be null");
 
@@ -737,7 +712,7 @@ namespace witsmllib
                 throw new ArgumentException("witsmlQuery cannot be null");
 
             String wsdlFunction = "WMLS_GetFromStore";
-            long requestTime = DateTime.Now.Ticks; // System.currentTimeMillis();
+            long requestTime = DateTime.Now.Ticks;
             String witsmlType = witsmlObject.getWitsmlType();
 
             String queryXml = null;
