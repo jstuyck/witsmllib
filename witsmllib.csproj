@@ -50,7 +50,6 @@
     <Compile Include="witsmllib\units\WitsmlQuantity.cs" />
     <Compile Include="witsmllib\units\WitsmlUnit.cs" />
     <Compile Include="witsmllib\units\WitsmlUnitManager.cs" />
-    <Compile Include="witsmllib\util\ISO8601DateParser.cs" />
     <Compile Include="witsmllib\util\XmlUtil.cs" />
     <Compile Include="witsmllib\v120\WitsmlBhaRun.cs" />
     <Compile Include="witsmllib\v120\WitsmlCementJob.cs" />

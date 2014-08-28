@@ -247,7 +247,7 @@ namespace witsmllib.util
 
             try
             {
-                return ISO8601DateParser.parse(timeString);
+                return DateTime.Parse(timeString);
             }
             catch (FormatException exception)
             {

@@ -327,7 +327,7 @@ public abstract class WitsmlLogCurve {
         //
         else if (dataType==typeof(DateTime)){// is DateTime){// (dataType == Date.class) {
             try {
-                value =String.IsNullOrEmpty(token)? (DateTime? )null: ISO8601DateParser.parse(token);// token.isEmpty() ? null : ISO8601DateParser.parse(token);
+                value =String.IsNullOrEmpty(token)? (DateTime? )null: DateTime.Parse(token);// token.isEmpty() ? null : ISO8601DateParser.parse(token);
             }
             catch (FormatException exception) {// ParseException exception) {
                 throw new WitsmlParseException(token, exception);

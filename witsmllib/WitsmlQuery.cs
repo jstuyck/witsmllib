@@ -416,7 +416,7 @@ namespace witsmllib
                 if (value is DateTime)
                 {
                     DateTime? time = (DateTime)value;
-                    return ISO8601DateParser.ToString(time);
+                    return time.ToString();
                 }
 
                 return value.ToString();
