@@ -11,3 +11,17 @@ The project is a port of the jwitsml.org project from Java to .Net,
 and retains the Apache 2.0 open source license used by the jwitsml project.
 
 
+
+
+	
+	|	Class						| CRUD |
+	|	WitsmlBhaRun				|  R   | 
+	|	WitsmlCementJob				|  R   | 
+	|  	WitsmlCommonData			|  R   |
+	|	WitsmlFluidsReport			|  R   |
+	|	WitsmlFormationMarker		|  R   |
+	|	WitsmlInterval				|  R   |
+	|	WitsmlLocation				|  R   |
+	|	WitsmlLog					|  R   |
+	|	WitsmlLogCurve				|  R   |
+	
