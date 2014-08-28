@@ -1,64 +1,48 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using witsmllib.util;
+using System.Xml.Linq;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib.v131
 {
 
-    /**
-     * Version dependent part of the generic WitsmlTrajectory class.
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
-    using witsmllib.util;
-    using System.Xml.Linq;
+    /// <summary>
+    ///  Version dependent part of the generic WitsmlTrajectory class.
+    /// </summary>
     sealed class WitsmlTrajectory : witsmllib.WitsmlTrajectory
     {
 
-        /**
-         * Create a trajectory object with specified ID and name and parent.
-         *
-         * @param server    The WITSML server. Non-null.
-         * @param id        ID of this trajectory. Non-null.
-         * @param name      Name of this trajectory. Non-null.
-         * @param parent    Parent of this trajectory. May be null.
-         * @param parentId  ParentId of this trajectory if parent is null. May be null.
-         */
+        /// <summary>
+        /// Create a trajectory object with specified ID and name and parent.
+        /// </summary>
+        /// <param name="server">The WITSML server. Non-null.</param>
+        /// <param name="id">ID of this trajectory. Non-null.</param>
+        /// <param name="name">Name of this trajectory. Non-null.</param>
+        /// <param name="parent">Parent of this trajectory. May be null.</param>
+        /// <param name="parentId">ParentId of this trajectory if parent is null. May be null.</param>
         private WitsmlTrajectory(WitsmlServer server, String id, String name,
                                  WitsmlObject parent, String parentId)
-        
-            :base(server, id, name, parent, parentId)
-        {}
 
-        /**
-         * Create a new instance from the given XML element.
-         *
-         * @param server   The WITSML server. Non-null.
-         * @param parent   Parent instance. May be null.
-         * @param element  XElement to create instance from. Non-null.
-         * @return         New instance. Never null.
-         */
+            : base(server, id, name, parent, parentId)
+        { }
+
+        /// <summary>
+        /// Create a new instance from the given XML element.
+        /// </summary>
+        /// <param name="server">The WITSML server. Non-null.</param>
+        /// <param name="parent">Parent instance. May be null.</param>
+        /// <param name="element">XElement to create instance from. Non-null.</param>
+        /// <returns> New instance. Never null.</returns>
         public static WitsmlObject newInstance(WitsmlServer server,
                                                WitsmlObject parent, XElement element)
         {
-            //Debug.Assert(server != null : "server cannot be null";
-            //Debug.Assert(element != null : "element cannot be null";
+            if (server == null)
+                throw new ArgumentException("server cannot be null");
+            if (element == null)
+                throw new ArgumentException("element cannot be null");
 
             String id = element.Attribute("uid").Value;
             String parentId = element.Attribute("uidWellbore").Value;
-            String name = element.Element(element.Name.Namespace +"name").Value.Trim(); //, element.getNamespace());
+            String name = element.Element(element.Name.Namespace + "name").Value.Trim(); //, element.getNamespace());
 
             WitsmlTrajectory witsmlTrajectory = new WitsmlTrajectory(server, id, name, parent, parentId);
             witsmlTrajectory.update(element);
@@ -66,17 +50,18 @@ namespace witsmllib.v131
             return witsmlTrajectory;
         }
 
-        /**
-         * Return query for instances of this type.
-         *
-         * @param id        ID of instance to find. Empty to find all. Non-null.
-         * @param parentId  ID(s) of parent. Closest parent first. Must contain at least one element.
-         * @return          XML query for identifying objects of this type. Never null.
-         */
+        /// <summary>
+        /// Return query for instances of this type.
+        /// </summary>
+        /// <param name="id">ID of instance to find. Empty to find all. Non-null.</param>
+        /// <param name="parentId">ID(s) of parent. Closest parent first. Must contain at least one element.</param>
+        /// <returns>XML query for identifying objects of this type. Never null.</returns>
         static String getQuery(String id, params String[] parentId)
         {
-            //Debug.Assert(id != null : "id cannot be null";
-            //Debug.Assert(parentId != null : "parentId cannot be null";
+            if (id == null)
+                throw new ArgumentException("id cannot be null");
+            if (parentId == null)
+                throw new ArgumentException("parentId cannot be null");
 
             String uidWellbore = parentId.Length > 0 ? parentId[0] : "";
             String uidWell = parentId.Length > 1 ? parentId[1] : "";
@@ -92,14 +77,14 @@ namespace witsmllib.v131
                            "    </parentTrajectory>" +
                            "    <dTimTrajStart/>" +
                            "    <dTimTrajEnd/>" +
-                           "    <mdMn uom=\"" + WitsmlServer.distUom+"\"/>" +
-                           "    <mdMx uom=\"" + WitsmlServer.distUom+"\"/>" +
+                           "    <mdMn uom=\"" + WitsmlServer.distUom + "\"/>" +
+                           "    <mdMx uom=\"" + WitsmlServer.distUom + "\"/>" +
                            "    <serviceCompany/>" +
                            "    <magDeclUsed uom=\"rad\"/>" +
                            "    <gridCorUsed uom=\"rad\"/>" +
                            "    <aziVertSect uom=\"rad\"/>" +
-                           "    <dispNsVertSectOrig uom=\"" + WitsmlServer.distUom+"\"/>" +
-                           "    <dispEwVertSectOrig uom=\"" + WitsmlServer.distUom+"\"/>" +
+                           "    <dispNsVertSectOrig uom=\"" + WitsmlServer.distUom + "\"/>" +
+                           "    <dispEwVertSectOrig uom=\"" + WitsmlServer.distUom + "\"/>" +
                            "    <definitive/>" +
                            "    <memory/>" +
                            "    <finalTraj/>" +
@@ -122,14 +107,14 @@ namespace witsmllib.v131
         {
             //Debug.Assert(element != null : "element cannot be null";
 
-            XElement parentTrajectoryElement = element.Element(element.Name.Namespace +"parentTrajectory"); //, element.getNamespace());
+            XElement parentTrajectoryElement = element.Element(element.Name.Namespace + "parentTrajectory"); //, element.getNamespace());
             if (parentTrajectoryElement != null)
             {
-                XElement trajectoryReferenceElement = parentTrajectoryElement.Element(element.Name.Namespace+"trajectoryReference");//,element.getNamespace());
+                XElement trajectoryReferenceElement = parentTrajectoryElement.Element(element.Name.Namespace + "trajectoryReference");//,element.getNamespace());
                 if (trajectoryReferenceElement != null)
                 {
                     parentTrajectoryName = trajectoryReferenceElement.Value.Trim(); //.getTextTrim();
-                    parentTrajectoryId = trajectoryReferenceElement.Attribute("uidRef").Value ;
+                    parentTrajectoryId = trajectoryReferenceElement.Attribute("uidRef").Value;
                 }
             }
 

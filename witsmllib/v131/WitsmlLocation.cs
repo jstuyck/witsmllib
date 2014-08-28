@@ -1,41 +1,25 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using System.Xml.Linq;
 
-http://www.apache.org/licenses/LICENSE-2.0
+using witsmllib.util;
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+
 namespace witsmllib.v131
 {
-
-    /**
-     * Version specific implementation of the WitsmlLocation type.
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
-    using witsmllib.util;
-    using System.Xml.Linq;
+    /// <summary>
+    /// Version specific implementation of the WitsmlLocation type.
+    /// </summary>
     public sealed class WitsmlLocation : witsmllib.WitsmlLocation
     {
 
-        /**
-         * Create a WITSML location instance from the given
-         * XML element node.
-         *
-         * @param element  commonData node. Non-null.
-         */
+        /// <summary>
+        /// Create a WITSML location instance from the given XML element node.
+        /// </summary>
+        /// <param name="element">commonData node. Non-null.</param>
         public WitsmlLocation(XElement element)
         {
-            //Debug.Assert(element != null : "element cannot be null";
+            if (element == null)
+                throw new ArgumentException("element cannot be null");
 
             crs = XmlUtil.update(element, "wellCRS", crs);
             latitude = XmlUtil.update(element, "latitude", latitude);
@@ -52,11 +36,10 @@ namespace witsmllib.v131
             description = XmlUtil.update(element, "description", description);
         }
 
-        /**
-         * Return complete XML query for this type.
-         *
-         * @return  XML query. Never null.
-         */
+        /// <summary>
+        /// Return complete XML query for this type.
+        /// </summary>
+        /// <returns>XML Query. Never null.</returns>
         public static String getQuery()
         {
             String query = "<wellCRS/>" +
