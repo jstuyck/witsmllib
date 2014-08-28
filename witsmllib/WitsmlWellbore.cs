@@ -155,11 +155,19 @@ namespace witsmllib
             return tvdKickoff;
         }
 
+        /// <summary>
+        /// Get the planned measured depth of this wellbore.
+        /// </summary>
+        /// <returns>Planned measured depth of this wellbore.</returns>
         public Value getMdPlanned()
         {
             return mdPlanned;
         }
 
+        /// <summary>
+        /// Get the planned true vertival depth of this wellbore.
+        /// </summary>
+        /// <returns>The planned true vertival depth of this wellbore.</returns>
         public Value getTvdPlanned()
         {
             return tvdPlanned;
