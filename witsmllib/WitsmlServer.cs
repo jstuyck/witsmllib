@@ -371,18 +371,17 @@ namespace witsmllib
         /// <param name="parentIds">Id of parent(s). Closest parent first. Null to indicate root-level.</param>
         /// <returns>Requested instances. Never null.</returns>
         public List<T> get<T>(WitsmlQuery witsmlQuery, params String[] parentIds) where T : WitsmlObject
-        { 
+        {
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
             return get<T>(witsmlQuery, null, null, parentIds);
         }
 
-
         /// <summary>
         /// Return instance of the given class with the given ID from this server
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Type of the Class to return. Non-null.</typeparam>
         /// <param name="baseClass">Class of children to return. Non-null.</param>
         /// <param name="witsmlQuery">Query to apply. Non-null.</param>
         /// <param name="id">ID of instance to get. Non-null.</param>
@@ -406,30 +405,16 @@ namespace witsmllib
             return objects.Count == 0 ? default(T) : objects[0];
         }
 
-        /**
-         * Return child of the given class and parent with the given ID from this server.
-         * <p>
-         * Example:
-         * <pre>
-         *   WitsmlWellbore wellbore = witsmlServer.getOne(WitsmlWellbore.class,
-         *                                                 new WitsmlQuery(),
-         *                                                 "WB-123",
-         *                                                 well);
-         * </pre>
-         *
-         * @param baseClass    Class of children to return. Non-null.
-         * @param WitsmlQuery  Query to apply. Non-null.
-         * @param id           ID of instance to get. Non-null.
-         * @param parent       Parent instance of child to get. Non-null
-         * @return             The requested instance, or null if not found.
-         * @throws ArgumentException  If any of the arguments are null.
-         * @throws WitsmlServerException  If the server access failed for some reason.
-         */
-        public T getOne<T>(/*Class<T> baseClass, */WitsmlQuery witsmlQuery, String id, WitsmlObject parent) where T : WitsmlObject
-        { //throws WitsmlServerException {
-            //if (baseClass == null)
-            //    throw new ArgumentException("baseClass cannot be null");
-
+        /// <summary>
+        /// Return child of the given class and parent with the given ID from this server.
+        /// </summary>
+        /// <typeparam name="T">Type of the Class to return. Non-null.</typeparam>
+        /// <param name="witsmlQuery"> Query to apply. Non-null.</param>
+        /// <param name="id">ID of instance to get. Non-null.</param>
+        /// <param name="parent">Parent instance of child to get. Non-null</param>
+        /// <returns>The requested instance, or null if not found.</returns>
+        public T getOne<T>(WitsmlQuery witsmlQuery, String id, WitsmlObject parent) where T : WitsmlObject
+        {
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -439,7 +424,7 @@ namespace witsmllib
             if (parent == null)
                 throw new ArgumentException("parent cannot be null");
 
-            List<T> objects = get<T>(/*baseClass,*/ witsmlQuery, id, parent);
+            List<T> objects = get<T>(witsmlQuery, id, parent);
 
             if (objects.Count > 1)
                 throw new WitsmlServerException("Multiple instances with ID = " + id, null);
@@ -447,31 +432,16 @@ namespace witsmllib
             return objects.Count == 0 ? default(T) : objects[0];
         }
 
-        /**
-         * Return child of the given class and parent with the given ID from this server.
-         * <p>
-         * Example:
-         * <pre>
-         *   WitsmlWellbore wellbore = witsmlServer.getOne(WitsmlWellbore.class,
-         *                                                 new WitsmlQuery(),
-         *                                                 "WB-123",
-         *                                                 "W-123");
-         * </code>
-         *
-         * @param baseClass    Class of children to return. Non-null.
-         * @param WitsmlQuery  Query to apply. Non-null.
-         * @param id           ID of instance to get. Non-null.
-         * @param parentIds    Parent IDs, closest first. Non-null
-         * @return             The requested instance, or null if not found.
-         * @throws ArgumentException  If any of the arguments are null.
-         * @throws WitsmlServerException  If the server access failed for some reason.
-         */
-        public T getOne<T>(/*Class<T> baseClass, */WitsmlQuery witsmlQuery, String id, params String[] parentIds) where T : WitsmlObject
-        { //throws WitsmlServerException {
-
-            //if (baseClass == null)
-            //    throw new ArgumentException("baseClass cannot be null");
-
+        /// <summary>
+        /// Return child of the given class and parent with the given ID from this server.
+        /// </summary>
+        /// <typeparam name="T">Type of the Class to return. Non-null.</typeparam>
+        /// <param name="witsmlQuery">Query to apply. Non-null.</param>
+        /// <param name="id">ID of instance to get. Non-null.</param>
+        /// <param name="parentIds">Parent IDs, closest first. Non-null</param>
+        /// <returns>The requested instance, or null if not found.</returns>
+        public T getOne<T>(WitsmlQuery witsmlQuery, String id, params String[] parentIds) where T : WitsmlObject
+        { 
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -481,7 +451,7 @@ namespace witsmllib
             if (parentIds == null)
                 throw new ArgumentException("parentIds cannot be null");
 
-            List<T> objects = get<T>(/*baseClass,*/ witsmlQuery, id, null, parentIds);
+            List<T> objects = get<T>(witsmlQuery, id, null, parentIds);
 
             if (objects != null && objects.Count > 1)
                 throw new WitsmlServerException("Multiple instances with ID = " + id, null);
@@ -552,16 +522,15 @@ namespace witsmllib
             }
         }
 
-        /**
-         * Get ancestor IDs from the specified instance and up the hierarchy.
-         *
-         * @param instance  Instance to start with. Non-null.
-         * @return          IDs starting with ID of given instance and upwards.
-         */
+        /// <summary>
+        /// Get ancestor IDs from the specified instance and up the hierarchy.
+        /// </summary>
+        /// <param name="instance">Instance to start with. Non-null.</param>
+        /// <returns>IDs starting with ID of given instance and upwards.</returns>
         private static String[] getIds(WitsmlObject instance)
         {
-            //Debug.Assert(instance != null : "instance cannot be null";
-
+            if (instance == null)
+                throw new ArgumentException("instance cannot be null"); 
             List<String> ids = new List<String>();
 
             WitsmlObject p = instance;
@@ -571,7 +540,7 @@ namespace witsmllib
                 p = p.getParent();
             }
 
-            return ids.ToArray(); //new String[0]);
+            return ids.ToArray();
         }
 
         /**
