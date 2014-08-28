@@ -1,29 +1,10 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 using System;
+
 namespace witsmllib
 {
-
-    //import java.util.Date;
-
-    /**
-     * Java representation of a WITSML "trajectoryStation".
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
+    /// <summary>
+    /// WitsmlTrajectoryStation Class
+    /// </summary>
     public abstract class WitsmlTrajectoryStation : IComparable<WitsmlTrajectoryStation>
     {
         private  int stationNo;
@@ -64,51 +45,47 @@ namespace witsmllib
         protected WitsmlLocation location;
         protected WitsmlCommonData commonData;
 
-        /**
-         * Create a trajectory station with given station number.
-         *
-         * @param stationNo  Station number of this trajectory station.
-         */
+        /// <summary>
+        /// Create a trajectory station with given station number.
+        /// </summary>
+        /// <param name="stationNo">tation number of this trajectory station.</param>
         protected WitsmlTrajectoryStation(int stationNo)
         {
             this.stationNo = stationNo;
         }
 
-        /**
-         * Get ID of this station.
-         *
-         * @return  ID of this station.
-         */
+        /// <summary>
+        /// Get ID of this station.
+        /// </summary>
+        /// <returns>ID of this station.</returns>
         public String getId()
         {
             return id;
         }
 
-        /**
-         * Return number in the sequence of this station.
-         *
-         * @return  Number in the sequence of this station. 0-based.
-         */
+        /// <summary>
+        /// Return number in the sequence of this station.
+        /// </summary>
+        /// <returns>Number in the sequence of this station. 0-based.</returns>
         public int getStationNo()
         {
             return stationNo;
         }
 
-        /**
-         * Get time of this station.
-         *
-         * @return  Time of this station.
-         */
+        /// <summary>
+        /// Get time of this station.
+        /// </summary>
+        /// <returns>Time of this station.</returns>
         public DateTime? getTime()
-        {
-            return time;// != null ? new Date(time.getTime()) : null;
+        {   
+
+            return time;
         }
 
-        /**
-         * Get type of this station.
-         *
-         * @return  Type of this station.
-         */
+        /// <summary>
+        /// Get type of this station.
+        /// </summary>
+        /// <returns>Type of this station.</returns>
         public String getType()
         {
             return type;
@@ -119,193 +96,281 @@ namespace witsmllib
             return surveyToolType;
         }
 
-        /**
-         * Get MD of this station.
-         *
-         * @return  MD of this station.
-         */
+        /// <summary>
+        ///  Get MD of this station.
+        /// </summary>
+        /// <returns>MD of this station.</returns>
         public Value getMd()
         {
             return md;
         }
 
-        /**
-         * Get TVD of this station.
-         *
-         * @return  TVD of this station.
-         */
+        /// <summary>
+        /// Get TVD of this station.
+        /// </summary>
+        /// <returns>TVD of this station.</returns>
         public Value getTvd()
         {
             return tvd;
         }
 
-        /**
-         * Get inclination of this station.
-         *
-         * @return  Inclination of this station.
-         */
+        /// <summary>
+        /// Get inclination of this station.
+        /// </summary>
+        /// <returns>Inclination of this station.</returns>
         public Value getInclination()
         {
             return inclination;
         }
 
-        /**
-         * Get azimuth of this station.
-         *
-         * @return  Azimuth of this station.
-         */
+        /// <summary>
+        /// Get azimuth of this station.
+        /// </summary>
+        /// <returns>Azimuth of this station.</returns>
         public Value getAzimuth()
         {
             return azimuth;
         }
 
-        /**
-         * Get angle of magnetic toolface of this station.
-         *
-         * @return  Angle of magnetic toolface of this station.
-         */
+        /// <summary>
+        /// Get angle of magnetic toolface of this station.
+        /// </summary>
+        /// <returns>Angle of magnetic toolface of this station.</returns>
         public Value getToolfaceMagneticAngle()
         {
             return toolfaceMagneticAngle;
         }
 
-        /**
-         * Get angle of gravity toolface of this station.
-         *
-         * @return  Angle of gravity toolface of this station.
-         */
+        
+        /// <summary>
+        /// Get angle of gravity toolface of this station.
+        /// </summary>
+        /// <returns>Angle of gravity toolface of this station.</returns>
         public Value getToolfaceGravityAngle()
         {
             return toolfaceGravityAngle;
         }
 
-        /**
-         * Get north position of this station.
-         *
-         * @return  North position of this station.
-         */
+        /// <summary>
+        /// Get north coordinate of this station.
+        /// </summary>
+        /// <returns>North position of this station.</returns>
         public Value getNorth()
         {
             return north;
         }
 
-        /**
-         * Get south position of this station.
-         *
-         * @return  South position of this station.
-         */
+        /// <summary>
+        /// Get East coordinate of this station.
+        /// </summary>
+        /// <returns></returns>
         public Value getEast()
         {
             return east;
         }
 
+        /// <summary>
+        /// Get Vertical Section distance of this station.
+        /// </summary>
+        /// <returns>Vertical Section distance of this station.</returns>
         public Value getVerticalSectionDistance()
         {
             return verticalSectionDistance;
         }
 
+        /// <summary>
+        /// Get the dogleg severity of this station.
+        /// </summary>
+        /// <returns>Dogleg severity of this station.</returns>
         public Value getDls()
         {
             return dls;
         }
 
+        /// <summary>
+        /// Get turn rate of this station.
+        /// </summary>
+        /// <returns>Turn rate of this station.</returns>
         public Value getTurnRate()
         {
             return turnRate;
         }
 
+        /// <summary>
+        /// Get build rate of this station.
+        /// </summary>
+        /// <returns>Build rate of this station</returns>
         public Value getBuildRate()
         {
             return buildRate;
         }
 
+        /// <summary>
+        /// Get measured depth of this station.
+        /// </summary>
+        /// <returns>Measured depth of this station.</returns>
         public Value getDMd()
         {
             return dMd;
         }
 
+        /// <summary>
+        /// Get true vertical depth of this station.
+        /// </summary>
+        /// <returns>True vertical depth of this station.</returns>
         public Value getDTvd()
         {
             return dTvd;
         }
 
+        /// <summary>
+        /// Get error model of this station.
+        /// </summary>
+        /// <returns>Error model of this station.</returns>
         public String getErrorModel()
         {
             return errorModel;
         }
 
+        /// <summary>
+        /// Get gravity uncertainty of this station.
+        /// </summary>
+        /// <returns>Gravity uncertainty of this station.</returns>
         public Value getGravityUncertainty()
         {
             return gravityUncertainty;
         }
 
+        /// <summary>
+        /// Get dip angle uncertainty of this station.
+        /// </summary>
+        /// <returns>Dip angle uncertainty of this station.</returns>
         public Value getDipAngleUncertainty()
         {
             return dipAngleUncertainty;
         }
 
+        /// <summary>
+        /// Get magnetic uncertainty of this station.
+        /// </summary>
+        /// <returns>Magnetic uncertainty of this station.</returns>
         public Value getMagneticUncertainty()
         {
             return magneticUncertainty;
         }
 
+        /// <summary>
+        /// Get if accelerometer correction is used for this station.
+        /// </summary>
+        /// <returns>If accelerometer correction is used for this station.</returns>
         public Boolean? isAccelerometerCorrectionUsed()
         {
             return _isAccelerometerCorrectionUsed;
         }
+
+        /// <summary>
+        /// Get if magnetometer correction is used for this station.
+        /// </summary>
+        /// <returns>If magnetometer correction is used for this station.</returns>
         public Boolean? isMagnetometerCorrectionUsed()
         {
             return _isMagnetometerCorrectionUsed;
         }
+
+        /// <summary>
+        /// Get if sag correction is used for this station.
+        /// </summary>
+        /// <returns>If sag correction is used for this station.</returns>
         public Boolean? isSagCorrectionUsed()
         {
             return _isSagCorrectionUsed;
         }
+
+        /// <summary>
+        /// Get if drillString magnetism correction is used for this station.
+        /// </summary>
+        /// <returns>If drillString magnetism correction is used for this station.</returns>
         public Boolean? isDrillStringMagnetismCorrectionUsed()
         {
             return _isDrillStringMagnetismCorrectionUsed;
         }
 
+        /// <summary>
+        /// Get gravitation field reference of this station.
+        /// </summary>
+        /// <returns>Gravitation field reference of this station.</returns>
         public Value getGravitationFieldReference()
         {
             return gravitationFieldReference;
         }
 
+        /// <summary>
+        /// Get magnetic field reference of this station.
+        /// </summary>
+        /// <returns>Magnetic field reference of this station.</returns>
         public Value getMagneticFieldReference()
         {
             return magneticFieldReference;
         }
 
+        /// <summary>
+        /// Get magnetic dip angle reference of this station.
+        /// </summary>
+        /// <returns>Magnetic dip angle reference of this station.</returns>
         public Value getMagneticDipAngleReference()
         {
             return magneticDipAngleReference;
         }
 
+        /// <summary>
+        /// Get magnetic model of this station.
+        /// </summary>
+        /// <returns>Magnetic model of this station.</returns>
         public String getMagneticModel()
         {
             return magneticModel;
         }
 
+        /// <summary>
+        /// Get magnetic model valid interval of this station.
+        /// </summary>
+        /// <returns>Magnetic model valid interval of this station.</returns>
         public String getMagneticModelValidInterval()
         {
             return magneticModelValidInterval;
         }
 
+        /// <summary>
+        /// Get gravitational model of this station.
+        /// </summary>
+        /// <returns>Gravitational model of this station.</returns>
         public String getGravitationalModel()
         {
             return gravitationalModel;
         }
 
+        /// <summary>
+        /// Get status of this station.
+        /// </summary>
+        /// <returns>Status of this station.</returns>
         public String getStatus()
         {
             return status;
         }
 
+        /// <summary>
+        /// Get location of this station.
+        /// </summary>
+        /// <returns>Location of this station.</returns>
         public WitsmlLocation getLocation()
         {
             return location;
         }
 
+        /// <summary>
+        /// Get common data of this station.
+        /// </summary>
+        /// <returns>Common data of this station.</returns>
         public WitsmlCommonData getCommonData()
         {
             return commonData;
@@ -323,7 +388,6 @@ namespace witsmllib
             return 1;
         }
 
-        
         public override  String ToString()
         {
             return "\n" + WitsmlObject.ToString(this, 2);
