@@ -1,34 +1,9 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
-
-    //import java.util.Date;
-    //import java.util.List;
-
-    /**
-     * Java representation of a WITSML "wellbore".
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
     public abstract class WitsmlWellbore : WitsmlObject
     {
-
-        /** The WITSML type name. */
         private static String WITSML_TYPE = "wellbore";
 
         protected String number;  // number
@@ -53,18 +28,13 @@ namespace witsmllib
         protected Value tvdSubSeaPlanned; // tvdSubSeaPlanned
         protected Int32? nTargetDays; // dayTarget
 
-        /**
-         * Create a wellbore object with speified ID and parent.
-         *
-         * @param id    ID of this well.
-         * @param well  Parent well of this wellbore. Non-null.
-         */
+
         protected WitsmlWellbore(WitsmlServer server,
                                  String id, String name,
                                  WitsmlObject parent, String parentId)
-        
-            :base(server, WITSML_TYPE, id, name, parent, parentId)
-        {}
+
+            : base(server, WITSML_TYPE, id, name, parent, parentId)
+        { }
 
         public String getNumber()
         {
@@ -81,46 +51,46 @@ namespace witsmllib
             return wellboreNumber;
         }
 
-        /**
-         * Get status of this wellbore.
-         *
-         * @return  Status of this wellbore.
-         */
+        /// <summary>
+        /// Get status of this wellbore.
+        /// </summary>
+        /// <returns>Status of this wellbore.</returns>
         public String getStatus()
         {
             return status;
         }
 
-        /**
-         * Get purpose of this wellbore.
-         *
-         * @return  Purpose of this wellbore.
-         */
+        /// <summary>
+        /// Get purpose of this wellbore.
+        /// </summary>
+        /// <returns>Purpose of this wellbore.</returns>
         public String getPurpose()
         {
             return purpose;
         }
 
-        /**
-         * Get type of this wellbore.
-         *
-         * @return  Type of this wellbore.
-         */
+        /// <summary>
+        /// Get type of this wellbore.
+        /// </summary>
+        /// <returns>Type of this wellbore.</returns>
         public String getType()
         {
             return type;
         }
 
-        /**
-         * Get shape of this wellbore.
-         *
-         * @return  Shape of this wellbore.
-         */
+        /// <summary>
+        /// Get shape of this wellbore.
+        /// </summary>
+        /// <returns>Shape of this wellbore.</returns>
         public String getShape()
         {
             return shape;
         }
 
+        /// <summary>
+        /// Get kick off Time of this wellbore.
+        /// </summary>
+        /// <returns>Kick off Time of this wellbore.</returns>
         public DateTime? getKickoffTime()
         {
             return kickoffTime;
@@ -131,31 +101,55 @@ namespace witsmllib
             return _isTotalDepthReached;
         }
 
+        /// <summary>
+        /// Get current measured depth of this wellbore.
+        /// </summary>
+        /// <returns>Current measured depth of this wellbore.</returns>
         public Value getMdCurrent()
         {
             return mdCurrent;
         }
 
+        /// <summary>
+        /// Get the true vertical depth of this wellbore.
+        /// </summary>
+        /// <returns>True vertical depth of this wellbore.</returns>
         public Value getTvdCurrent()
         {
             return tvdCurrent;
         }
 
+        /// <summary>
+        /// Get the current bit depth of this wellbore.
+        /// </summary>
+        /// <returns>Current bit depth of this wellbore.</returns>
         public Value getMdBitCurrent()
         {
             return mdBitCurrent;
         }
 
+        /// <summary>
+        /// Get the true vertical depth of the bit of this wellbore.
+        /// </summary>
+        /// <returns>True vertical depth of the bit of this wellbore.</returns>
         public Value getTvdBitCurrent()
         {
             return tvdBitCurrent;
         }
 
+        /// <summary>
+        /// Get the measured depth of the kick off of this wellbore.
+        /// </summary>
+        /// <returns>Measured depth of the kick off of this wellbore.</returns>
         public Value getMdKickoff()
         {
             return mdKickoff;
         }
 
+        /// <summary>
+        /// Get the true vertical depth of the kick off of this wellbore.
+        /// </summary>
+        /// <returns>True vertical depth of the kick off of this wellbore.</returns>
         public Value getTvdKickoff()
         {
             return tvdKickoff;
