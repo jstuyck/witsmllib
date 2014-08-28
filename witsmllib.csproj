@@ -46,7 +46,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="witsmllib\Capabilities.cs" />
-    <None Include="witsmllib\WitsmlServer.cs-old" />
     <Compile Include="witsmllib\FunctionCapability.cs" />
     <Compile Include="witsmllib\units\WitsmlQuantity.cs" />
     <Compile Include="witsmllib\units\WitsmlUnit.cs" />
