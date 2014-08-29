@@ -169,11 +169,11 @@ namespace witsmllib
 
                         FunctionCapability function = new FunctionCapability(functionName, functionVersion);
 
-                        var dataObjectElements = functionElement.Elements(@namespace + "dataObject"/*, @namespace*/);
-                        //for (var j = dataObjectElements.iterator(); j.hasNext(); )
+                        var dataObjectElements = functionElement.Elements(@namespace + "dataObject");
+                  
                         foreach (XElement dataObjectElement in dataObjectElements)
                         {
-                            String dataObject = dataObjectElement.Value.Trim();//.getTextTrim();
+                            String dataObject = dataObjectElement.Value.Trim();
                             function.addWitsmlType(dataObject);
                         }
                         addFunction(function);
@@ -202,141 +202,130 @@ namespace witsmllib
             }
         }
 
-        /**
-         * Check if this is a server (true) or a client (false) capabilities
-         * object.
-         *
-         * @return  True if this is a server capabilities object, false if it
-         *          is a client capabilities object.
-         */
+        /// <summary>
+        /// Check if this is a server (true) or a client (false) capabilities
+        /// object.
+        /// </summary>
+        /// <returns>True if this is a server capabilities object, false if it is a client capabilities object.</returns>
         public bool isServer()
         {
             return _isServer;
         }
 
-        /**
-         * Return WITSML version(s) supported. The WITSML standard
-         * unfortunately puts no constraint on the format of this
-         * information, many servers will list all their supported
-         * formats in a comma separated list.
-         * <p>
-         * The client capabilities instance will return the string
-         * representation of the argument passed to the constructor,
-         * or null if none was provided.
-         *
-         * @return  WITSML version(s) supported. May be null.
-         */
+        /// <summary>
+        /// Return WITSML version(s) supported. The WITSML standard
+        /// unfortunately puts no constraint on the format of this
+        /// information, many servers will list all their supported
+        /// formats in a comma separated list.
+        /// The client capabilities instance will return the string
+        /// representation of the argument passed to the constructor,
+        /// or null if none was provided.
+        /// </summary>
+        /// <returns>WITSML version(s) supported. May be null.</returns>
         public String getWitsmlVersion()
         {
             return witsmlVersion;
         }
 
-        /**
-         * Get contact name for the site.
-         *
-         * @return  Contact name for the site. May be null.
-         */
+        /// <summary>
+        /// Get contact name for the site.
+        /// </summary>
+        /// <returns>Contact name for the site. May be null.</returns>
         public String getContactName()
         {
             return contactName;
         }
 
-        /**
-         * Return contact e-mail for the site.
-         *
-         * @return Contact e-mail for the site. May be null.
-         */
+        /// <summary>
+        /// Return contact e-mail for the site.
+        /// </summary>
+        /// <returns>Contact e-mail for the site. May be null.</returns>
         public String getContactEmail()
         {
             return contactEmail;
         }
 
-        /**
-         * Get contact phone for the site.
-         *
-         * @return  Contact phone for the site. May be null.
-         */
+        /// <summary>
+        /// Get contact phone for the site.
+        /// </summary>
+        /// <returns>Contact phone for the site. May be null.</returns>
         public String getContactPhone()
         {
             return contactPhone;
         }
 
-        /**
-         * Return name of the application program.
-         *
-         * @return  Name of application program. May be null.
-         */
+        /// <summary>
+        /// Return name of the application program.
+        /// </summary>
+        /// <returns>Name of application program. May be null.</returns>
         public String getName()
         {
             return name;
         }
 
-        /**
-         * Get description of the application program.
-         *
-         * @return  Description of the application program. May be null.
-         */
+        /// <summary>
+        /// Get description of the application program.
+        /// </summary>
+        /// <returns>Description of the application program. May be null.</returns>
         public String getDescription()
         {
             return description;
         }
 
-        /**
-         * Get application program vendor.
-         *
-         * @return  Application program vendor. May be null.
-         */
+        /// <summary>
+        ///  Get application program vendor.
+        /// </summary>
+        /// <returns>Application program vendor. May be null.</returns>
         public String getVendor()
         {
             return vendor;
         }
 
-        /**
-         * Get application program version.
-         *
-         * @return Application program version. May be null.
-         */
+        /// <summary>
+        /// Get application program version.
+        /// </summary>
+        /// <returns>Application program version. May be null.</returns>
         public String getProgramVersion()
         {
             return programVersion;
         }
 
-        /**
-         * Add function capabilities to this capabilities instance.
-         * Functions are a property of the server only and is not used
-         * with client capabilities.
-         *
-         * @param function  Function capabilties to add.
-         */
+        /// <summary>
+        /// Add function capabilities to this capabilities instance.
+        /// Functions are a property of the server only and is not used
+        /// with client capabilities.
+        /// </summary>
+        /// <param name="function">Function capabilties to add.</param>
         void addFunction(FunctionCapability function)
         {
-            //Debug.Assert(function != null : "function cannot be null";
-            //Debug.Assert(isServer : "functions are only supported for server capabilities";
-
-            functions.Add(function);
+            if (function == null)
+                throw new ArgumentException("function cannot be null");
+          
+            if (_isServer)
+                functions.Add(function);
+            else
+                throw new Exception("functions are only supported for server capabilities");
         }
 
-        /**
-         * Return all supported functions and which objects they support.
-         * Functions are a property of the server only and for a client
-         * capabilities object this property will be null.
-         *
-         * @return  Functions of this capabilities. Null if isServer() is false.
-         *          Never null if isServer() is true.
-         */
+        /// <summary>
+        /// Return all supported functions and which objects they support.
+        /// Functions are a property of the server only and for a client
+        /// capabilities object this property will be null.
+        /// </summary>
+        /// <returns>Functions of this capabilities. Null if isServer() is false. 
+        ///  Never null if isServer() is true.</returns>
         internal List<FunctionCapability> getFunctions()
         {
             return this.functions;
         }
 
-        /**
-         * Return this capabilities as a capabilities WITSML definition
-         * (an XML string).
-         *
-         * @return  WITSML definition (an XML string) of this capabilities object.
-         */
+        /// <summary>
+        ///  Return this capabilities as a capabilities WITSML definition (an XML string).
+        /// </summary>
+        /// <returns>WITSML definition (an XML string) of this capabilities object.</returns>
         public String toXml()
         {
+            //TODO : Should be replaced by a XDocument class.
             StringBuilder xml = new StringBuilder();
 
             // WITSML Version
@@ -397,13 +386,11 @@ namespace witsmllib
 
             return xml.ToString();
         }
-
-        /**
-         * Return a string representation of this instance.
-         *
-         * @return  A string representation of this instance. Never null.
-         */
-
+        
+        /// <summary>
+        /// Return a string representation of this instance.
+        /// </summary>
+        /// <returns>A string representation of this instance. Never null.</returns>
         public override String ToString()
         {
             StringBuilder s = new StringBuilder();

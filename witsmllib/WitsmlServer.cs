@@ -762,6 +762,7 @@ namespace witsmllib
                 if (element != null)
                 {
                     MethodInfo updateMethod = witsmlObject.GetType().GetMethod("update");//.getClass().getDeclaredMethod("update",
+                    
                     //Element.class);
                     //updateMethod.setAccessible(true);
 
