@@ -1,84 +1,65 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using System.Text;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml.Linq;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
 
-    /**
-     * Define a WITSML <em>capabilities</em> object. The capabilities are used when
-     * a server and client communicates. The server will identify its WITSML
-     * version and what function and data objects it supports, while a client
-     * will identify what WITSML version it expects.
-     * <p>
-     * The usage and content of the capabilities are by the WITSML standard
-     * completely optional. Users of NWitsml are however encouraged to specify
-     * their client capabilities properly.
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
-    using System.Text;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Xml.Linq;
+
+    /// <summary>
+    /// Define a WITSML Capabilities  object. The capabilities are used when
+    /// a server and client communicates. The server will identify its WITSML
+    /// version and what function and data objects it supports, while a client
+    /// will identify what WITSML version it expects.
+    /// The usage and content of the capabilities are by the WITSML standard
+    /// completely optional
+    /// </summary>
     public sealed class Capabilities
     {
         /** True if this is server capabilitries, false if it is client capabilities. */
-        private  bool _isServer;
+        private bool _isServer;
 
         /** Function capabilities for server. Never null if isServer is true, null if false. */
-        internal  List<FunctionCapability> functions; // Server only
+        internal List<FunctionCapability> functions; // Server only
 
         /** WITSML version supported. May be null. */
-        private  String witsmlVersion;
+        private String witsmlVersion;
 
         /** Contact name. May be null. */
-        private  String contactName;
+        private String contactName;
 
         /** Contact e-mail. May be null. */
-        private  String contactEmail;
+        private String contactEmail;
 
         /** Contact phone. May be null. */
-        private  String contactPhone;
+        private String contactPhone;
 
         /** System name. May be null. */
-        private  String name;
+        private String name;
 
         /** System description. May be null. */
-        private  String description;
+        private String description;
 
         /** System vendor name. May be null. */
-        private  String vendor;
+        private String vendor;
 
         /** System program version. May be null. */
-        private  String programVersion;
+        private String programVersion;
 
-        /**
-         * Create a capabilities object with the specified properties.
-         *
-         * @param version         WITSML version accepted by client. May be bull.
-         * @param isServer        Indicates if this is a server (true) or client (false)
-         *                        capabilities instance.
-         * @param contactName     Contact name for the site. May be null.
-         * @param contactEmail    Contact e-mail for the site. May be null.
-         * @param contactPhone    Contact phone for the site. May be null.
-         * @param name            System product name. May be null.
-         * @param description     System description. May be null.
-         * @param vendor          System vendor. May be null.
-         * @param programVersion  System version. May be null.
-         */
+        /// <summary>
+        /// Create a capabilities object with the specified properties.
+        /// </summary>
+        /// <param name="version">WITSML version accepted by client. May be bull.</param>
+        /// <param name="isServer">Indicates if this is a server (true) or client (false) capabilities instance.</param>
+        /// <param name="contactName">Contact name for the site. May be null.</param>
+        /// <param name="contactEmail">Contact e-mail for the site. May be null.</param>
+        /// <param name="contactPhone">Contact phone for the site. May be null.</param>
+        /// <param name="name">System product name. May be null.</param>
+        /// <param name="description">System description. May be null.</param>
+        /// <param name="vendor">System vendor. May be null.</param>
+        /// <param name="programVersion">System version. May be null.</param>
         Capabilities(WitsmlVersion version,
                      bool isServer,
                      String contactName,
@@ -101,18 +82,17 @@ namespace witsmllib
             this.programVersion = programVersion;
         }
 
-        /**
-         * Create a client capabilities object with the specified properties.
-         *
-         * @param version         WITSML version accepted by client. May be null.
-         * @param contactName     Contact name. May be null.
-         * @param contactEmail    Contact e-mail. May be null.
-         * @param contactPhone    Contact phone number. May be null.
-         * @param name            System product name. May be null.
-         * @param description     System description. May be null.
-         * @param vendor          System vendor. May be null.
-         * @param programVersion  System version. May be null.
-         */
+        /// <summary>
+        /// Create a client capabilities object with the specified properties.
+        /// </summary>
+        /// <param name="version">WITSML version accepted by client. May be null.</param>
+        /// <param name="contactName">Contact name. May be null.</param>
+        /// <param name="contactEmail">Contact e-mail. May be null.</param>
+        /// <param name="contactPhone">Contact phone number. May be null.</param>
+        /// <param name="name">System product name. May be null.</param>
+        /// <param name="description">System description. May be null.</param>
+        /// <param name="vendor">System vendor. May be null.</param>
+        /// <param name="programVersion">System version. May be null.</param>
         public Capabilities(WitsmlVersion version,
                             String contactName,
                             String contactEmail,
@@ -125,15 +105,17 @@ namespace witsmllib
                  name, description, vendor, programVersion)
         { }
 
-        /**
-         * Create a capabilities instance by parsing the specified WITSML string.
-         *
-         * @param xml  XML defining the capabilities.
-         */
+        /// <summary>
+        /// Create a capabilities instance by parsing the specified WITSML string.
+        /// </summary>
+        /// <param name="version">XML defining the capabilities.</param>
+        /// <param name="xml"></param>
         internal Capabilities(WitsmlVersion version, String xml)
-        { //throws WitsmlParseException {
-            //Debug.Assert(version != null : "version cannot be null";
-            //Debug.Assert(xml != null : "xml cannot be null";
+        {
+            if (version == null)
+                throw new ArgumentException("version cannot be null.");
+            if (xml == null)
+                throw new ArgumentException("xml cannot be null");
 
             String witsmlVersionTmp = null;
             String contactNameTmp = null;
@@ -168,31 +150,29 @@ namespace witsmllib
                     XElement contactElement = capElement.Element(@namespace + "contact");//, @namespace);
                     if (contactElement != null)
                     {
-                        contactNameTmp = contactElement.Element(contactElement.Name.Namespace+"name").Value.Trim();//, contactElement.Name.Namespace.getNamespace());
-                        contactEmailTmp = contactElement.Element(contactElement.Name.Namespace+"email").Value.Trim();//, contactElement.getNamespace());
-                        contactPhoneTmp = contactElement.Element(contactElement.Name.Namespace+"phone").Value.Trim();//, contactElement.getNamespace());
+                        contactNameTmp = contactElement.Element(contactElement.Name.Namespace + "name").Value.Trim();//, contactElement.Name.Namespace.getNamespace());
+                        contactEmailTmp = contactElement.Element(contactElement.Name.Namespace + "email").Value.Trim();//, contactElement.getNamespace());
+                        contactPhoneTmp = contactElement.Element(contactElement.Name.Namespace + "phone").Value.Trim();//, contactElement.getNamespace());
                     }
 
-                    nameTmp = capElement.Element(capElement.Name.Namespace+"name").Value; //, capElement.getNamespace());
+                    nameTmp = capElement.Element(capElement.Name.Namespace + "name").Value; //, capElement.getNamespace());
                     descriptionTmp = capElement.Element(capElement.Name.Namespace + "description").Value; //, capElement.getNamespace());
-                    vendorTmp = capElement.Element (capElement.Name.Namespace + "vendor").Value; //, capElement.getNamespace());
-                    programVersionTmp = capElement.Element (capElement.Name.Namespace + "version").Value; //, capElement.getNamespace());
+                    vendorTmp = capElement.Element(capElement.Name.Namespace + "vendor").Value; //, capElement.getNamespace());
+                    programVersionTmp = capElement.Element(capElement.Name.Namespace + "version").Value; //, capElement.getNamespace());
 
                     var functionElements = capElement.Elements(@namespace + "function");//, @namespace);
-                    //for (var i = functionElements.iterator(); i.hasNext(); )
-                    foreach(var i in functionElements)
+                 
+                    foreach (XElement functionElement in functionElements)
                     {
-                        XElement functionElement = (XElement)i;//.next();
-                        String functionName = functionElement.Attribute("name").Value ;
-                        String functionVersion = functionElement.Attribute("apiVers").Value ;
+                        String functionName = functionElement.Attribute("name").Value;
+                        String functionVersion = functionElement.Attribute("apiVers").Value;
 
-                        FunctionCapability function = new FunctionCapability(functionName,functionVersion);
+                        FunctionCapability function = new FunctionCapability(functionName, functionVersion);
 
-                        var dataObjectElements = functionElement.Elements(@namespace+"dataObject"/*, @namespace*/);
+                        var dataObjectElements = functionElement.Elements(@namespace + "dataObject"/*, @namespace*/);
                         //for (var j = dataObjectElements.iterator(); j.hasNext(); )
-                        foreach(var j in dataObjectElements)
+                        foreach (XElement dataObjectElement in dataObjectElements)
                         {
-                            XElement dataObjectElement = (XElement)j;// j.next();
                             String dataObject = dataObjectElement.Value.Trim();//.getTextTrim();
                             function.addWitsmlType(dataObject);
                         }
@@ -209,12 +189,13 @@ namespace witsmllib
                 vendor = vendorTmp;
                 programVersion = programVersionTmp;
             }
-            
+
             catch (IOException exception)
             {
                 // Convert to a non-IO exception to hide implementation details of this class.
                 throw new WitsmlParseException(xml, exception);
-            }catch (Exception /*JDOMException */ exception)
+            }
+            catch (Exception /*JDOMException */ exception)
             {
                 // Convert to a non-JDOM exception to hide implementation details of this class.
                 throw new WitsmlParseException(xml, exception);
@@ -422,7 +403,7 @@ namespace witsmllib
          *
          * @return  A string representation of this instance. Never null.
          */
-        
+
         public override String ToString()
         {
             StringBuilder s = new StringBuilder();

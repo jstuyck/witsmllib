@@ -28,7 +28,6 @@ namespace witsmllib
         protected Value tvdSubSeaPlanned; // tvdSubSeaPlanned
         protected Int32? nTargetDays; // dayTarget
 
-
         protected WitsmlWellbore(WitsmlServer server,
                                  String id, String name,
                                  WitsmlObject parent, String parentId)

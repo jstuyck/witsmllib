@@ -22,13 +22,13 @@ namespace witsmllib
         protected String description;
         protected List<WitsmlRealtimeChannel> channels = new List<WitsmlRealtimeChannel>();
 
-       /// <summary>
-        ///  Create a realtime object with specified parent.
-       /// </summary>
-       /// <param name="server"></param>
-       /// <param name="id"></param>
-       /// <param name="parent"></param>
-       /// <param name="parentId"></param>
+        /// <summary>
+        /// Create a realtime object with specified parent.
+        /// </summary>
+        /// <param name="server"></param>
+        /// <param name="id"></param>
+        /// <param name="parent"></param>
+        /// <param name="parentId"></param>
         protected WitsmlRealtime(WitsmlServer server, String id, WitsmlObject parent, String parentId)
 
             : base(server, WITSML_TYPE, id, null, parent, parentId)
