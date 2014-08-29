@@ -1,18 +1,8 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using System.IO;
+using System.Xml.Linq;
+using System.Xml.Schema;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib.util
 {
 
@@ -21,10 +11,7 @@ namespace witsmllib.util
      *
      * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
      */
-    using System;
-    using System.IO;
-    using System.Xml.Linq;
-    using System.Xml.Schema;
+    
     public sealed class XmlUtil
     {
 
@@ -44,32 +31,8 @@ namespace witsmllib.util
          */
         private static XDocument newDocument(String xml)
         {
-            return XDocument.Load(new StringReader(xml)); 
+            return XDocument.Parse(xml); 
         }
-        //private static Document newDocument(String xml)
-        //{ //throws SAXException {
-        //    try
-        //    {
-        //        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        //        documentBuilderFactory.setNamespaceAware(true);
-
-        //        DocumentBuilder parser = documentBuilderFactory.newDocumentBuilder();
-        //        Reader reader = new StringReader(xml);
-        //        Document document = parser.parse(new InputSource(reader));
-
-        //        return document;
-        //    }
-        //    catch (ParserConfigurationException exception)
-        //    {
-        //        //Debug.Assert(false : exception.getMessage();
-        //        return null;
-        //    }
-        //    catch (IOException exception)
-        //    {
-        //        //Debug.Assert(false : exception.getMessage();
-        //        return null;
-        //    }
-        //}
 
         /**
          * Check if the specified XML is valid according to the specified schema.
@@ -138,7 +101,7 @@ namespace witsmllib.util
                 newDocument(xml);
                 return true;
             }
-            catch (Exception exception)// (SAXException exception)
+            catch (Exception)// (SAXException exception)
             {
                 return false;
             }
@@ -156,108 +119,63 @@ namespace witsmllib.util
         {
             if (xml == null)
                 throw new ArgumentException("xml cannot be null");
-            throw new NotImplementedException(); 
-
-            //Format format = Format.getPrettyFormat();
-            //XMLOutputter outputter = new XMLOutputter(format);
-
-            //Writer writer = new StringWriter();
-
-            //SAXBuilder builder = new SAXBuilder();
-
-            //try
-            //{
-            //    org.jdom.Document document = XDocument.Load(new StringReader(xml));
-            //    outputter.output(document, writer);
-
-            //    return writer.ToString();
-            //}
-            //catch (IOException exception)
-            //{
-            //    Console.Write(exception.StackTrace);// exception.printStackTrace();
-            //    return xml;
-            //}
-            //catch (JDOMException exception)
-            //{
-            //    exception.printStackTrace();
-            //    return xml;
-            //}
+            XDocument x = XDocument.Parse(xml);
+            
+            return x.ToString();
         }
 
-        /**
-         * Convenience method for parsing a standard WITSML double string
-         * into a Java Double instance.
-         *
-         * @param valueString  WITSML double string. May be null.
-         * @return             Corresponding double instance, or null if input
-         *                     is null or incorrect format.
-         */
+        /// <summary>
+        ///  Convenience method for parsing a standard WITSML double string
+        ///  to Double instance
+        /// </summary>
+        /// <param name="valueString"></param>
+        /// <returns>Double instance, or null if input is null or incorrect format.</returns>
         private static Double? getDouble(String valueString)
         {
-            if (valueString == null || string.IsNullOrEmpty(valueString))// valueString.isEmpty())
+            double res;
+            if (Double.TryParse(valueString, out res))
+                return res;
+            else
                 return null;
-
-            try
-            {
-                return Double.Parse(valueString); // new Double(valueString);
-            }
-            catch (FormatException exception)
-            {
-                // TODO: Throw parse exception
-                return null;
-            }
         }
 
-        /**
-         * Convenience method for parsing a standard WITSML double string
-         * into a Java Double instance.
-         *
-         * @param valueString  WITSML double string. May be null.
-         * @return             Corresponding double instance, or null if input
-         *                     is null or incorrect format.
-         */
-        private static Int32? getInteger(String valueString)
+        /// <summary>
+        ///  Convenience method for parsing a standard WITSML integer string
+        ///  to an integer instance.
+        /// </summary>
+        /// <param name="valueString">WITSML integer string. May be null.</param>
+        /// <returns>int instance, or null if input is null or incorrect format.</returns>
+        private static int? getInteger(String valueString)
         {
-            if (valueString == null || string.IsNullOrEmpty( valueString)) //.isEmpty())
+            int res;
+            if (int.TryParse(valueString, out res))
+                return res;
+            else
                 return null;
-
-            try
-            {
-                return  Int32.Parse(valueString);
-            }
-            catch (FormatException exception)
-            {
-                // TODO: throw parse exception
-                return null;
-            }
         }
 
-        /**
-         * Convenience method for parsing a standard WITSML time string
-         * into a Java Date instance.
-         *
-         * @param valueString  WITSML time string. May be null.
-         * @return             Corresponding time instance, or null if input
-         *                     is null or incorrect format.
-         */
+        /// <summary>
+        /// Convenience method for parsing a standard WITSML time string
+        /// </summary>
+        /// <param name="timeString">WITSML datetime string. May be null.</param>
+        /// <returns>Datetime instance, or null if input is null or incorrect format.</returns>
         public static DateTime?  getTime(String timeString)
         {
-            if (timeString == null || String.IsNullOrEmpty(timeString))//.isEmpty())
+            DateTime res;
+            if (DateTime.TryParse(timeString, out res))
+                return res;
+            else
                 return null;
-
-            try
-            {
-                return DateTime.Parse(timeString);
-            }
-            catch (FormatException exception)
-            {
-                // TODO: Throw parse exception
-                return null;
-            }
         }
 
+        /// <summary>
+        /// Convenience method for parsing a standard WITSML boolean
+        /// </summary>
+        /// <param name="booleanString">WITSML boolean string. May be null.</param>
+        /// <returns>Bolean instance, or null if input is null or incorect format.</returns>
         public static Boolean? getBoolean(String booleanString)
         {
+            
             if (booleanString == null)
                 return null;
 
@@ -265,18 +183,16 @@ namespace witsmllib.util
                    booleanString.Equals("1");
         }
 
-        /**
-         * Return the new value for the specfied element.
-         *
-         * @param element    Parent of element to get new value for. Non-null.
-         * @param childName  Name of child element to extract value of. Non-null.
-         * @param oldValue   The present value. This will be returned if the element
-         *                   requested does not exist. May be null.
-         * @return           The child element value, or oldValue if the requested
-         *                   element doesn't exist. May be null.
-         */
-
         //TODO - use IsEmpty instead of check for null?
+        /// <summary>
+        /// Return the new value for the specfied element.
+        /// </summary>
+        /// <param name="parentElement">Parent of element to get new value for. Non-null.</param>
+        /// <param name="childName"> Name of child element to extract value of. Non-null.</param>
+        /// <param name="oldValue">The present value. This will be returned if the element
+        /// requested does not exist. May be null.</param>
+        /// <returns>The child element value, or oldValue if the requested
+        /// element doesn't exist. May be null.</returns>
         public static String update(XElement parentElement, string childName, string oldValue)
         {
             XElement element = parentElement.Element(parentElement.Name.Namespace + childName); //Add namespace to this?
