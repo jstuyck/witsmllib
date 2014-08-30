@@ -16,11 +16,11 @@ namespace witsmllib
     {
         private static String WITSML_TYPE = "wbGeometry";
 
-        private DateTime? _dTimReport;     //Time report generated.
-        private Value _mdBottom;           //Measured depth at bottom.
-        private Value _gapAir;             //Air gap.
-        private Value _depthWaterMean;     //Water depth.
-        private WitsmlWellboreGeometrySection _wbGeometrySection; //Wellbore geometry section object.
+        protected DateTime? _dTimReport;     //Time report generated.
+        protected Value _mdBottom;           //Measured depth at bottom.
+        protected Value _gapAir;             //Air gap.
+        protected Value _depthWaterMean;     //Water depth.
+        protected List<WitsmlWellboreGeometrySection> _wbGeometrySection; //Wellbore geometry section object.
 
         protected WitsmlWellboreGeometry(WitsmlServer server,
                                       String id, String name,
@@ -32,44 +32,44 @@ namespace witsmllib
         /// <summary>
         /// Get the Time when the report was generated.
         /// </summary>
-        protected DateTime? DTimReport
+        public DateTime? GetDTimReport()
         {
-            get { return _dTimReport; }
+            return _dTimReport;
         }
 
         /// <summary>
         /// Get the measured depth at bottom.
         /// </summary>
-        public Value MdBottom
+        public Value GetMdBottom()
         {
-            get { return _mdBottom; }
+            return _mdBottom;
         }
 
         /// <summary>
         /// Get the Air gap.
         /// </summary>
-        public Value GepAir
+        public Value GetGapAir()
         {
-            get { return _gapAir; }
+            return _gapAir;
         }
 
         /// <summary>
         /// Get the water depth.
         /// </summary>
-        public Value DepthWaterMean
+        public Value GetDepthWaterMean()
         {
-            get { return _depthWaterMean; }
+            return _depthWaterMean;
         }
 
         /// <summary>
         /// Get the Wellbore geometry section object.
         /// </summary>
-        public WitsmlWellboreGeometrySection WbGeometrySection
+        public List<WitsmlWellboreGeometrySection> GetWbGeometrySection()
         {
-            get { return _wbGeometrySection; }
+            return _wbGeometrySection;
         }
 
 
-     
+
     }
 }

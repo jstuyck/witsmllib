@@ -134,6 +134,7 @@
     <Compile Include="witsmllib\WitsmlWell.cs" />
     <Compile Include="witsmllib\WitsmlWellbore.cs" />
     <Compile Include="witsmllib\WitsmlWellboreGeometry.cs" />
+    <Compile Include="witsmllib\WitsmlWellboreGeometrySection.cs" />
     <Compile Include="witsmllib\WSRef\Reference.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
