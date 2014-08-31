@@ -108,7 +108,7 @@
     <Compile Include="witsmllib\WitsmlBhaRun.cs" />
     <Compile Include="witsmllib\WitsmlCementJob.cs" />
     <Compile Include="witsmllib\WitsmlCementStage.cs" />
-    <Compile Include="witsmllib\WitsmlCommonData.cs" />
+    <Compile Include="witsmllib\CommonData.cs" />
     <Compile Include="witsmllib\WitsmlFluidsReport.cs" />
     <Compile Include="witsmllib\WitsmlFormationMarker.cs" />
     <Compile Include="witsmllib\WitsmlInterval.cs" />

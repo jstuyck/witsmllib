@@ -32,6 +32,7 @@ namespace witsmllib
     using System;
     using System.Collections.Generic;
     using witsmllib;
+    using witsmllib.util;
     public class WitsmlLog : WitsmlObject
     {
 

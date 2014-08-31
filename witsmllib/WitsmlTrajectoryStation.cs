@@ -43,7 +43,7 @@ namespace witsmllib
         protected String gravitationalModel; // geoModelUsed
         protected String status; // statusTrajStation
         protected WitsmlLocation location;
-        protected WitsmlCommonData commonData;
+        protected CommonData commonData;
 
         /// <summary>
         /// Create a trajectory station with given station number.
@@ -371,7 +371,7 @@ namespace witsmllib
         /// Get common data of this station.
         /// </summary>
         /// <returns>Common data of this station.</returns>
-        public WitsmlCommonData getCommonData()
+        public CommonData getCommonData()
         {
             return commonData;
         }

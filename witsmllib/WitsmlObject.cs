@@ -6,33 +6,19 @@ using System.Text;
 
 namespace witsmllib
 {
-
     /// <summary>
     /// Base class for all WITSML data objects.
     /// </summary>
     public abstract class WitsmlObject
     {
 
-        /** Type of this instance. Non-null. */
-        private String type;
-
-        /** WITSML Version of this intsance. Non-null. */
-        private WitsmlServer server;
-
-        /** Unique (for this WITSML store) ID. May be null. */
-        private String id;
-
-        /** Name of this instance. May be null. */
-        private String name;
-
-        /** Parent instance. Null for instances at root level. */
-        private WitsmlObject parent;
-
-        /** ID of parent. Null if at root level or extracted without parent. */
-        private String parentId;
-
-        /** Common data of this instance. May be null. */
-        protected WitsmlCommonData commonData;
+        private String type;                    //Type of this instance. Non-null. 
+        private WitsmlServer server;            //WITSML Version of this intsance. Non-null.
+        private String id;                      //Unique (for this WITSML store) ID. May be null.
+        private String name;                    //Name of this instance. May be null.
+        private WitsmlObject parent;            //Parent instance. Null for instances at root level.
+        private String parentId;                //ID of parent. Null if at root level or extracted without parent.
+        protected CommonData commonData;  //Common data of this instance. May be null
 
         /// <summary>
         /// Create a new WITSML object with specified properties.
@@ -47,10 +33,11 @@ namespace witsmllib
                                String type, String id, String name, WitsmlObject parent,
                                String parentId)
         {
-            //Debug.Assert(server != null : "server cannot be null";
-            //Debug.Assert(type != null : "type cannot be null";
-            //Debug.Assert(parent == null || parent.getId().Equals(parentId);
-
+            if (server == null)
+                throw new ArgumentNullException("server cannot be null");
+            if (type == null)
+                throw new ArgumentNullException("type cannot be null");
+         
             this.server = server;
             this.type = type;
             this.id = id;
@@ -59,90 +46,83 @@ namespace witsmllib
             this.parentId = parent != null ? parent.getId() : parentId;
         }
 
-        /**
-         * Return ID of this instance.
-         *
-         * @return  ID of this instance. Null for types that
-         *          doesn't support ID's.
-         */
+        /// <summary>
+        /// Return ID of this instance.
+        /// </summary>
+        /// <returns>ID of this instance. Null for types that doesn't support ID's.</returns>
         public String getId()
         {
             return id;
         }
 
-        /**
-         * Return name of this instance.
-         *
-         * @return  Name of this instance. Null if name is not loaded.
-         */
+        /// <summary>
+        /// Return name of this instance. 
+        /// </summary>
+        /// <returns>Name of this instance. Null if name is not loaded.</returns>
         public String getName()
         {
             return name;
         }
 
-        /**
-         * Return the WITSML type of this instance.
-         *
-         * @return  The WITSML type of this instance. Never null.
-         */
+        /// <summary>
+        /// Return the WITSML type of this instance. 
+        /// </summary>
+        /// <returns>The WITSML type of this instance. Never null.</returns>
         public String getWitsmlType()
         {
             return type;
         }
 
-        /**
-         * Return the WITSML server backing this instance.
-         *
-         * @return  The WITSML server backing this instance. Never null.
-         */
+        /// <summary>
+        /// Return the WITSML server backing this instance. 
+        /// </summary>
+        /// <returns>The WITSML server backing this instance. Never null.</returns>
         public WitsmlServer getWitsmlServer()
         {
             return server;
         }
 
-        /**
-         * Return the WITSML version of this instance.
-         *
-         * @return  The WITSML version of this instance. Never null.
-         */
+       /// <summary>
+        /// Return the WITSML version of this instance. 
+       /// </summary>
+        /// <returns>The WITSML version of this instance. Never null.</returns>
         public WitsmlVersion getVersion()
         {
             return server.getVersion();
         }
 
-        /**
-         * Return ID of parent instance.
-         *
-         * @return  ID of parent instamce. Null if at root level or instance
-         *          is extracted without parent reference.
-         */
+       /// <summary>
+        /// Return ID of parent instance. 
+       /// </summary>
+        /// <returns>ID of parent instamce. Null if at root level or instance is extracted without parent reference.</returns>
         public String getParentId()
         {
             return parentId;
         }
 
-        /**
-         * Return parent of this instance.
-         *
-         * @return  Parent of this instance. Null if at root level, or instance
-         *          is extracted without parent reference.
-         */
+       /// <summary>
+        /// Return parent of this instance. 
+       /// </summary>
+        /// <returns>Parent of this instance. Null if at root level, or instance is extracted without parent reference.</returns>
         public WitsmlObject getParent()
         {
             return parent;
         }
 
-        /**
-         * Return the common data of this instance.
-         *
-         * @return  Common data of this instance. Null if not loaded or if common
-         *          data is not supported for this type.
-         */
-        public WitsmlCommonData getCommonData()
+        /// <summary>
+        /// Return the common data of this instance. 
+        /// </summary>
+        /// <returns>Common data of this instance. Null if not loaded or if common data is not supported for this type.</returns>
+        public CommonData getCommonData()
         {
             return commonData;
         }
 
+
+        public CommonData newCommonData()
+        {
+            throw new NotImplementedException();
+        }
         /** {@inheritDoc} */
 
         //public int hashCode() {

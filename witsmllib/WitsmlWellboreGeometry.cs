@@ -56,9 +56,18 @@ namespace witsmllib
         /// <summary>
         /// Get the water depth.
         /// </summary>
-        public Value GetDepthWaterMean()
+        public Value getWaterDepth()
         {
             return _depthWaterMean;
+        }
+
+        /// <summary>
+        /// Set the water depth
+        /// </summary>
+        /// <param name="waterDepth"></param>
+        public void setWaterDepth(Value waterDepth) 
+        {
+            _depthWaterMean = waterDepth;
         }
 
         /// <summary>

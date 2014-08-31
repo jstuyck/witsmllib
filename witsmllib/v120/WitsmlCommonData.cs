@@ -24,7 +24,7 @@ namespace witsmllib.v120
     using System;
     using witsmllib.util;
     using System.Xml.Linq;
-    public sealed class WitsmlCommonData : witsmllib.WitsmlCommonData
+    public sealed class WitsmlCommonData : witsmllib.CommonData
     {
 
         /**
