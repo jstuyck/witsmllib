@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace witsmllib.witsmllib
+namespace witsmllib
 {
     class WitsmlCementStage
     {
@@ -26,17 +26,17 @@ namespace witsmllib.witsmllib
         protected Value presMudCirc;
         protected Value flowrateEnd;
         protected Value cementingFluid;
-        protected Value afterFlowAnn;
-        protected Value squeezeObj;
-        protected Value squeezeObtained;
+        protected bool? afterFlowAnn;
+        protected string squeezeObj;
+        protected bool? squeezeObtained;
         protected Value mdString;
         protected Value mdTool;
         protected Value mdCoilTbg;
         protected Value volCsgIn;
         protected Value volCsgOut;
-        protected Value tailPipeUsed;
+        protected bool? tailPipeUsed;
         protected Value diaTailPipe;
-        protected Value tailPipePerf;
+        protected bool? tailPipePerf;
         protected Value presTbgStart;
         protected Value presTbgEnd;
         protected Value presCsgStart;
@@ -48,15 +48,15 @@ namespace witsmllib.witsmllib
         protected Value flowrateBreakDown;
         protected Value presSqueezeAv;
         protected Value presSqueezeEnd;
-        protected Value presSqueezeHeld;
+        protected bool? presSqueezeHeld;
         protected Value presSqueeze;
         protected Value eTimPresHeld;
         protected Value flowrateSqueezeAv;
         protected Value flowrateSqueezeMx;
         protected Value flowratePumpStart;
         protected Value flowratePumpEnd;
-        protected Value pillBelowPlug;
-        protected Value plugCatcher;
+        protected bool? pillBelowPlug;
+        protected bool? plugCatcher;
         protected Value mdCircOut;
         protected Value volCircPrior;
         protected string typeOriginalMud;
@@ -71,15 +71,15 @@ namespace witsmllib.witsmllib
         protected string volExcessMethod;
         protected string mixMethod;
         protected string densMeasBy;
-        protected Value annFlowAfter;
-        protected Value topPlug;
-        protected Value botPlug;
+        protected bool? annFlowAfter;
+        protected bool? topPlug;
+        protected bool? botPlug;
         protected int botPlugNumber;
-        protected Value plugBumped;
+        protected bool? plugBumped;
         protected Value presPriorBump;
         protected Value presBump;
         protected Value presHeld;
-        protected Value floatHeld;
+        protected bool? floatHeld;
         protected Value volMudLost;
         protected string fluidDisplace;
         protected Value densDisplaceFluid;
@@ -88,7 +88,7 @@ namespace witsmllib.witsmllib
         /// <summary>
         /// Return the average displacement rate of this cement stage.
         /// </summary>
-        /// <returns>Average displacement rate of this cement stage.</returns>
+        /// <returns>Average displacement rate of this cement stage. May be null if absent or unknown.</returns>
         public Value getAverageDisplacementRate()
         {
             return flowrateDisplaceAv;
@@ -412,7 +412,7 @@ namespace witsmllib.witsmllib
         {
             return mdTop;
         }
-        
+
         /// <summary>
         /// Return the mixing time start of this cement stage.
         /// </summary>
@@ -421,68 +421,352 @@ namespace witsmllib.witsmllib
         {
             return dTimMixStart;
         }
-         
+
         /// <summary>
         /// Return the mix method of this cement stage.
         /// </summary>
         /// <returns>Mix method of this cement stage.</returns>
- public string getMixMethod()
- {
-     return mixMethod;
- }
-          /// <summary>
-          /// Return the mud circulation flow rate of this cement stage.
-          /// </summary>
-          /// <returns>Mud circulation flow rate of this cement stage.</returns>
- public Value getMudCirculationFlowRate()
- {
-     return flowrateMudCirc;
- }
-          
+        public string getMixMethod()
+        {
+            return mixMethod;
+        }
+        /// <summary>
+        /// Return the mud circulation flow rate of this cement stage.
+        /// </summary>
+        /// <returns>Mud circulation flow rate of this cement stage.</returns>
+        public Value getMudCirculationFlowRate()
+        {
+            return flowrateMudCirc;
+        }
+
         /// <summary>
         ///  Return the mud circulation pressure of this cement stage.
         /// </summary>
         /// <returns>Mud circulation pressure of this cement stage.</returns>
- public Value getMudCirculationPressure()
- {
-    return presMudCirc;
- }
-          /// <summary>
-          /// Return the mud circulation time of this cement stage.
-          /// </summary>
-          /// <returns>Mud circulation time of this cement stage.</returns>
- public Value getMudCirculationTime()
- {
-return eTimMudCirculation;
- }
-          
+        public Value getMudCirculationPressure()
+        {
+            return presMudCirc;
+        }
+        /// <summary>
+        /// Return the mud circulation time of this cement stage.
+        /// </summary>
+        /// <returns>Mud circulation time of this cement stage.</returns>
+        public Value getMudCirculationTime()
+        {
+            return eTimMudCirculation;
+        }
+
         /// <summary>
         ///  Return the mud density of this cement stage.
         /// </summary>
         /// <returns>Mud density of this cement stage.</returns>
- public Value getMudDensity()
- {
- return wtMud;
- }
-  
+        public Value getMudDensity()
+        {
+            return wtMud;
+        }
+
         /// <summary>
         /// Return the mud lost volume of this cement stage.
         /// </summary>
         /// <returns>Mud lost volume of this cement stage.</returns>
- public Value getMudLostVolume()
- {
-     return volMudLost;
- }
-          
+        public Value getMudLostVolume()
+        {
+            return volMudLost;
+        }
+
         /// <summary>
         /// Return the mud type of this cement stage.
         /// </summary>
         /// <returns>Mud type of this cement stage.</returns>
- public string getMudType()
- {
-     return typeOriginalMud;
- }
-          
+        public string getMudType()
+        {
+            return typeOriginalMud;
+        }
+
+        /// <summary>
+        /// Return the plastic mud viscosity of this cement stage.
+        /// </summary>
+        /// <returns>Plastic mud viscosity of this cement stage.</returns>
+        public Value getPlasticMudViscosity()
+        {
+            return pvMud;
+        }
+
+        /// <summary>
+        /// Return the prior bump pressure of this cement stage.
+        /// </summary>
+        /// <returns>Prior bump pressure of this cement stage.</returns>
+        public Value getPriorBumpPressure()
+        {
+            return presPriorBump;
+        }
+
+        /// <summary>
+        /// Return the pump flowrate end of this cement stage.
+        /// </summary>
+        /// <returns>Pump flowrate end of this cement stage.</returns>
+        public Value getPumpFlowrateEnd()
+        {
+            return flowratePumpEnd;
+        }
+
+        /// <summary>
+        /// Return the pump flowrate start of this cement stage.
+        /// </summary>
+        /// <returns>Pump flowrate start of this cement stage.</returns>
+        public Value getPumpFlowrateStart()
+        {
+            return flowratePumpStart;
+        }
+
+        /// <summary>
+        /// Return the pumping time end of this cement stage.
+        /// </summary>
+        /// <returns>Pumping time end of this cement stage.</returns>
+        public DateTime getPumpingTimeEnd()
+        {
+            return dTimPumpEnd;
+        }
+
+        /// <summary>
+        /// Return the pumping time start of this cement stage.
+        /// </summary>
+        /// <returns>Pumping time start of this cement stage.</returns>
+        public DateTime getPumpingTimeStart()
+        {
+            return dTimPumpStart;
+        }
+
+        /// <summary>
+        /// Return the squeeze objective of this cement stage.
+        /// </summary>
+        /// <returns>Squeeze objective of this cement stage.</returns>
+        public string getSqueezeObjective()
+        {
+            return squeezeObj;
+        }
+
+        /// <summary>
+        /// Return the squeeze pressure of this cement stage.
+        /// </summary>
+        /// <returns>Squeeze pressure of this cement stage.</returns>
+        public Value getSqueezePressure()
+        {
+            return presSqueeze;
+        }
+
+        /// <summary>
+        /// Return the squeeze pressure end of this cement stage.
+        /// </summary>
+        /// <returns>Squeeze pressure end of this cement stage.</returns>
+        public Value getSqueezePressureEnd()
+        {
+            return presSqueezeEnd;
+        }
+
+        /// <summary>
+        /// Return the stage number of this cement stage.
+        /// </summary>
+        /// <returns>The stage number of this cement stage. May be null if absent or unknown.</returns>
+        public int? getStageNumber()
+        {
+            return numStage;
+        }
+
+        /// <summary>
+        /// Return the start tubing pressure of this cement stage.
+        /// </summary>
+        /// <returns>The start tubing pressure of this cement stage. May be null if absent or unknown.</returns>
+        public Value getStartTubingPressure()
+        {
+            return presTbgStart;
+        }
+
+        /// <summary>
+        /// Return the tail pipe diameter of this cement stage.
+        /// </summary>
+        /// <returns>The tail pipe diameter of this cement stage. May be null if absent or unknown.</returns>
+
+        public Value getTailPipeDiameter()
+        {
+            return diaTailPipe;
+        }
+
+        /// <summary>
+        /// Return the time pressure held of this cement stage.
+        /// </summary>
+        /// <returns>The time pressure held of this cement stage. May be null if absent or unknown.</returns>
+        public Value getTimePressureHeld()
+        {
+            return eTimPresHeld;
+        }
+
+        /// <summary>
+        /// Return the type of this cement stage.
+        /// </summary>
+        /// <returns>The type of this cement stage. May be null if absent or unknown.</returns>
+        public string getType()
+        {
+            return typeStage;
+        }
+
+        /// <summary>
+        /// Return the volume inside casing of this cement stage.
+        /// </summary>
+        /// <returns>The volume inside casing of this cement stage. May be null if absent or unknown.</returns>
+        public Value getVolumeInsideCasing()
+        {
+            return volCsgIn;
+        }
+
+        /// <summary>
+        /// Return the volume of returns of this cement stage.
+        /// </summary>
+        /// <returns>The volume of returns of this cement stage. May be null if absent or unknown.</returns>
+        public Value getVolumeOfReturns()
+        {
+            return volReturns;
+        }
+
+        /// <summary>
+        ///  Return the volume outside casing of this cement stage.
+        /// </summary>
+        /// <returns>The volume outside casing of this cement stage. May be null if absent or unknown.</returns>
+        public Value getVolumeOutsideCasing()
+        {
+            return volCsgOut;
+        }
+
+        /// <summary>
+        /// Return the yield point mud of this cement stage.
+        /// </summary>
+        /// <returns>The yield point mud of this cement stage. May be null if absent or unknown.</returns>
+        public Value getYieldPointMud()
+        {
+            return ypMud;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is annular flow after.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is annular flow after of this cement stage? May be null if absent or unknown.</returns>
+
+        public bool? isAnnularFlowAfter()
+        {
+            return annFlowAfter;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is annular flow at end.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is annular flow at end of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isAnnularFlowAtEnd()
+        {
+            return afterFlowAnn;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is bottom plug used.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is bottom plug used of this cement stage? May be null if absent or unknown.</returns>
+
+        public bool? isBottomPlugUsed()
+        {
+            return botPlug;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is float held.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is float held of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isFloatHeld()
+        {
+            return floatHeld;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is pill below plug.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is pill below plug of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isPillBelowPlug()
+        {
+            return pillBelowPlug;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is plug bumped.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is plug bumped of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isPlugBumped()
+        {
+            return plugBumped;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is plug catcher.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is plug catcher of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isPlugCatcher()
+        {
+            return plugCatcher;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is squeeze obtained.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is squeeze obtained of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isSqueezeObtained()
+        {
+            return squeezeObtained;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is squeeze pressure held.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is squeeze pressure held of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isSqueezePressureHeld()
+        {
+            return presSqueezeHeld;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is tail pipe perforated. 
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is tail pipe perforated of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isTailPipePerforated()
+        {
+            return tailPipePerf;
+        }
+        /// <summary>
+        /// Return if this cement stage is tail pipe used. 
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is tail pipe used of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isTailPipeUsed()
+        {
+            return tailPipeUsed;
+        }
+
+        /// <summary>
+        /// Return if this cement stage is top plug used.
+        /// Values are "true" (or "1") and "false" (or "0"). 
+        /// </summary>
+        /// <returns>Is top plug used of this cement stage? May be null if absent or unknown.</returns>
+        public bool? isTopPlugUsed()
+        {
+            return topPlug;
+        }
+
 
 
     }

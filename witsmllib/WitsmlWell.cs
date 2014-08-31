@@ -4,7 +4,6 @@ namespace witsmllib
 {
     public class WitsmlWell : WitsmlObject
     {
-
         private static String WITSML_TYPE = "well";
 
         protected String legalName; // nameLegal

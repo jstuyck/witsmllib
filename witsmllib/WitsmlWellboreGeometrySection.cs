@@ -5,7 +5,7 @@ using System.Text;
 
 namespace witsmllib
 {
-    class WitsmlWellboreGeometrySection : WitsmlObject
+    public abstract class WitsmlWellboreGeometrySection : WitsmlObject
     {
         private static String WITSML_TYPE = "wbGeometrySection";
 
