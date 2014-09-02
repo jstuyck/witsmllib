@@ -31,7 +31,7 @@ namespace witsmllib
         protected Value wellHeadElevation; // dtmPermToWellhead (1.2) wellheadElevation(1.3+)
         protected Value groundElevation; // groundElevation
         protected Value waterDepth; // waterDepth
-        protected WitsmlLocation location; //location (1.2) wellLocation (1.3+)
+        protected Location location; //location (1.2) wellLocation (1.3+)
 
         protected String datum;
 
@@ -272,7 +272,7 @@ namespace witsmllib
         /// Get the location of this well.
         /// </summary>
         /// <returns>Location of this well.</returns>
-        public WitsmlLocation getLocation()
+        public Location getLocation()
         {
             return location;
         }

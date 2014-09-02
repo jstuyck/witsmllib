@@ -25,7 +25,7 @@ namespace witsmllib.v120
     using System;
     using witsmllib.util;
     using System.Xml.Linq;
-    sealed class WitsmlLocation : witsmllib.WitsmlLocation
+    sealed class WitsmlLocation : witsmllib.Location
     {
 
         /**

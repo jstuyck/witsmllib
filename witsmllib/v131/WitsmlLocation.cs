@@ -9,7 +9,7 @@ namespace witsmllib.v131
     /// <summary>
     /// Version specific implementation of the WitsmlLocation type.
     /// </summary>
-    public sealed class WitsmlLocation : witsmllib.WitsmlLocation
+    public sealed class WitsmlLocation : witsmllib.Location
     {
 
         /// <summary>

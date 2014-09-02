@@ -42,7 +42,7 @@ namespace witsmllib
         protected String magneticModelValidInterval; // magModelValid
         protected String gravitationalModel; // geoModelUsed
         protected String status; // statusTrajStation
-        protected WitsmlLocation location;
+        protected Location location;
         protected CommonData commonData;
 
         /// <summary>
@@ -362,7 +362,7 @@ namespace witsmllib
         /// Get location of this station.
         /// </summary>
         /// <returns>Location of this station.</returns>
-        public WitsmlLocation getLocation()
+        public Location getLocation()
         {
             return location;
         }
