@@ -93,11 +93,7 @@ namespace witsmllib
             return _isOriginal;
         }
 
-        public String getDescription()
-        {
-            return description;
-        }
-
+        
         public String getInputType()
         {
             return inputType;

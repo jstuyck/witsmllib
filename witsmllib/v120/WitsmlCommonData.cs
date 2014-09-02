@@ -38,9 +38,9 @@ namespace witsmllib.v120
             //Debug.Assert(element != null : "element cannot be null";
 
             source = XmlUtil.update(element, "nameSource", source);
-            timeCreated = XmlUtil.update(element, "dTimCreation", timeCreated);
-            timeUpdated = XmlUtil.update(element, "dTimLastChange", timeUpdated);
-            state = XmlUtil.update(element, "itemState", state);
+            dTimCreation = XmlUtil.update(element, "dTimCreation", dTimCreation);
+            dTimLastChange = XmlUtil.update(element, "dTimLastChange", dTimLastChange);
+            setState(XmlUtil.update(element, "itemState", state.ToString()));
             comments = XmlUtil.update(element, "comments", comments);
         }
 

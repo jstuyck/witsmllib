@@ -40,8 +40,8 @@ namespace witsmllib.v120
 
             latitude = XmlUtil.update(element, "latitude", latitude);
             longitude = XmlUtil.update(element, "longitude", longitude);
-            x = XmlUtil.update(element, "xCoord", x);
-            y = XmlUtil.update(element, "yCoord", y);
+            projectedX = XmlUtil.update(element, "xCoord", projectedX);
+            projectedY = XmlUtil.update(element, "yCoord", projectedY);
         }
 
         /**

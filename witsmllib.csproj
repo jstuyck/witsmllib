@@ -112,7 +112,7 @@
     <Compile Include="witsmllib\WitsmlFluidsReport.cs" />
     <Compile Include="witsmllib\WitsmlFormationMarker.cs" />
     <Compile Include="witsmllib\WitsmlInterval.cs" />
-    <Compile Include="witsmllib\WitsmlLocation.cs" />
+    <Compile Include="witsmllib\Location.cs" />
     <Compile Include="witsmllib\WitsmlLog.cs" />
     <Compile Include="witsmllib\WitsmlLogCurve.cs" />
     <Compile Include="witsmllib\WitsmlMessage.cs" />

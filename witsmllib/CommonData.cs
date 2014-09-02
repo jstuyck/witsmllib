@@ -3,9 +3,9 @@ using System;
 namespace witsmllib
 {
 
-   /// <summary>
-   /// Need to be changed to Match proper spec.
-   /// </summary>
+    /// <summary>
+    /// Need to be changed to Match proper spec.
+    /// </summary>
     public abstract class CommonData
     {
 
@@ -31,7 +31,7 @@ namespace witsmllib
             this.source = source;
         }
 
-       
+
         public DateTime? getTimeCreated()
         {
             return dTimCreation;
@@ -62,6 +62,27 @@ namespace witsmllib
         {
             this.state = state;
         }
+
+        public void setState(string state)
+        {
+
+            switch (state.ToUpper())
+            {
+                case "ACTUAL":
+                    this.state = State.ACTUAL;
+                    break;
+                case "MODEL":
+                    this.state = State.MODEL;
+                    break;
+                case "PLAN":
+                    this.state = State.PLAN;
+                    break;
+                default:
+                    this.state = State.UNKNOWN;
+                    break;
+            }
+        }
+
 
         public String getServiceCategory()
         {
@@ -94,7 +115,7 @@ namespace witsmllib
         }
 
         /** {@inheritDoc} */
-        
+
         public override String ToString()
         {
             return "\n" + WitsmlObject.ToString(this, 2);

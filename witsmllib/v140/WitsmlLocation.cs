@@ -38,17 +38,17 @@ namespace witsmllib.v140
         {
             //Debug.Assert(element != null : "element cannot be null";
 
-            crs = XmlUtil.update(element, "wellCRS", crs);
+            wellCRS = XmlUtil.update(element, "wellCRS", wellCRS);
             latitude = XmlUtil.update(element, "latitude", latitude);
             longitude = XmlUtil.update(element, "longitude", longitude);
             easting = XmlUtil.update(element, "easting", easting);
             northing = XmlUtil.update(element, "northing", northing);
             westing = XmlUtil.update(element, "westing", westing);
             southing = XmlUtil.update(element, "southing", westing);
-            x = XmlUtil.update(element, "projectedX", x);
-            y = XmlUtil.update(element, "projectedY", y);
-            xLocal = XmlUtil.update(element, "localX", xLocal);
-            yLocal = XmlUtil.update(element, "localY", yLocal);
+            projectedX = XmlUtil.update(element, "projectedX", projectedX);
+            projectedY = XmlUtil.update(element, "projectedY", projectedY);
+            localX = XmlUtil.update(element, "localX", localX);
+            localY = XmlUtil.update(element, "localY", localY);
             _isOriginal = XmlUtil.update(element, "original", _isOriginal);
             description = XmlUtil.update(element, "description", description);
         }

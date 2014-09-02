@@ -111,8 +111,8 @@ namespace witsmllib.v131
             //Debug.Assert(element != null : "element cannot be null";
 
             parentTargetId = XmlUtil.update(element, "uidTargetParent", parentTargetId);
-            north = XmlUtil.update(element, "dispNsCenter", north);
-            east = XmlUtil.update(element, "dispEwCenter", east);
+            dispNsCenter = XmlUtil.update(element, "dispNsCenter", dispNsCenter);
+            dispEwCenter = XmlUtil.update(element, "dispEwCenter", dispEwCenter);
             tvd = XmlUtil.update(element, "tvd", tvd);
 
             XElement commonDataElement = element.Element(element.Name.Namespace + "commonData");//, element.getNamespace());
