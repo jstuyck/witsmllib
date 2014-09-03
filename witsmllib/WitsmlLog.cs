@@ -1,38 +1,13 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using witsmllib;
+using witsmllib.util;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
 
-    //import java.util.ArrayList;
-    //import java.util.Collections;
-    //import java.util.Date;
-    //import java.util.List;
-    //import java.util.logging.Level;
-
-    //import nwitsml.util.XmlUtil;
-
-    /**
-     * Java representation of a WITSML "log".
-     *
-     * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
-     */
-    using System;
-    using System.Collections.Generic;
-    using witsmllib;
-    using witsmllib.util;
+   
     public class WitsmlLog : WitsmlObject
     {
 
@@ -174,21 +149,29 @@ namespace witsmllib
             return indexString;
         }
 
-        /**
-         * Get start index of this log.
-         *
-         * @return  Start index of this log.
-         */
+        /// <summary>
+        /// Return the start index of this log. 
+        /// 
+        /// When the log header defines the direction as "Increasing",
+        /// the startIndex is the starting (minimum) index value at which the first valid data point is located.
+        /// When the log header defines the direction as "Decreasing", 
+        /// the startIndex is the starting (maximum) index value at which the first valid data point is located. 
+        /// </summary>
+        /// <returns>The start index of this log. May be null if absent or unknown.</returns>
         public Object getStartIndex()
         {
             return startIndex;
         }
 
-        /**
-         * Get end index of this log.
-         *
-         * @return  End index of this log.
-         */
+        /// <summary>
+        /// Return the end index of this log. 
+        /// 
+        /// When the log header defines the direction as "Increasing", 
+        /// the endIndex is the ending (maximum) index value at which the last valid data point is located. 
+        /// When the log header defines the direction as Decreasing,
+        /// the endIndex is the ending (minimum) index value at which the last valid data point is located. 
+        /// </summary>
+        /// <returns>The end index of this log. May be null if absent or unknown.</returns>
         public Object getEndIndex()
         {
             return endIndex;
@@ -230,59 +213,54 @@ namespace witsmllib
             return comment;
         }
 
-        /**
-         * Get log curves of this log.
-         * A copy is returned, to avoid locking problems (such as deadlock).
-         * @see <a href="http://www.witsml.org">www.witsml.org</a>
-         *
-         * @return  Log curves of this log.
-         */
+       /// <summary>
+        /// Return the curves of this log. In the returned list the curves are organized by their curveNo (columnIndex), lowest index first. 
+       /// </summary>
+        /// <returns>The curves of this log. Never null.</returns>
         public List<WitsmlLogCurve> getCurves()
         {
             return curves; // Collections.unmodifiableList(curves);
         }
 
-        /**
-         * Get number of log curves of this log.
-         * @see <a href="http://www.witsml.org">www.witsml.org</a>
-         *
-         * @return  Number of log curves of this log.
-         */
+        /// <summary>
+        /// Return the number of curves of this log. 
+        /// </summary>
+        /// <returns>Number of log curves of this log. [>=0].</returns>
         public int getNCurves()
         {
             return curves.Count; //.size();
         }
 
-        /**
-         * Return the index curve of this log.
-         *
-         * @return Index curve of this log (or null if not found).
-         */
+        /// <summary>
+        /// The mnemonic of the index curve plus the column index. 
+        /// 
+        /// A column index of zero indicates an implied trace whose
+        /// values start at startIndex and increment by stepIncrement for each row. 
+        /// </summary>
+        /// <returns>The index curve name of this log. May be null if absent or unknown.</returns>
         public WitsmlLogCurve getIndexCurve()
         {
             return findCurve(indexCurveName);
         }
 
-        /**
-         * Find log curve with specified name.
-         *
-         * @param curveName  Name of curve to find.
-         * @return   Requested curve (or null if not found).
-         */
+        /// <summary>
+        /// Find log curve with specified name. 
+        /// </summary>
+        /// <param name="curveName">Name of curve to find. </param>
+        /// <returns>Requested curve (or null if not found).</returns>
         public WitsmlLogCurve findCurve(String curveName)
         {
-            foreach (WitsmlLogCurve logCurve in this.curves)
-            {
-                if (logCurve.getName().Equals(curveName))
-                    return logCurve;
-            }
-
-            // Not found
-            return null;
+            return this.curves.Where(x => x.getName().Equals(curveName)).FirstOrDefault();        
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="curveNo"></param>
+        /// <returns></returns>
         protected WitsmlLogCurve findCurve(int curveNo)
         {
+           
             foreach (WitsmlLogCurve logCurve in this.curves)
             {
                 if (logCurve.getCurveNo() == curveNo)

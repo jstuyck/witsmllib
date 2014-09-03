@@ -581,6 +581,12 @@ namespace witsmllib
                 // Find the newInstance() method
                 //
                 MethodInfo newInstanceMethod = actualClass.GetMethod("newInstance", BindingFlags.NonPublic | BindingFlags.Static); //.getDeclaredMethod("newInstance",
+               
+#if DEBUG
+                if (newInstanceMethod == null)
+                    throw new NotImplementedException("newInstance method is not implemented for the classe " + actualClass.Name);
+#endif
+                
                 //WitsmlServer.class,
                 // WitsmlObject.class,
                 // Element.class);

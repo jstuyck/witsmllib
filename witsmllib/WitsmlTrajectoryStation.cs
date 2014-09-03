@@ -206,18 +206,18 @@ namespace witsmllib
         }
 
         /// <summary>
-        /// Get measured depth of this station.
+        /// Get the Delta measured depth from previous station.
         /// </summary>
-        /// <returns>Measured depth of this station.</returns>
+        /// <returns>The Delta measured depth from previous station.</returns>
         public Value getDMd()
         {
             return dMd;
         }
 
         /// <summary>
-        /// Get true vertical depth of this station.
+        /// Get the Delta true vertical depth from previous station.
         /// </summary>
-        /// <returns>True vertical depth of this station.</returns>
+        /// <returns>The Delta true vertical depth from previous station.</returns>
         public Value getDTvd()
         {
             return dTvd;

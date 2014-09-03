@@ -32,7 +32,7 @@ namespace witsmllib.v131
         /// <param name="parent">Parent instance. May be null.</param>
         /// <param name="element">XElement to create instance from. Non-null.</param>
         /// <returns> New instance. Never null.</returns>
-        public static WitsmlObject newInstance(WitsmlServer server,
+        static WitsmlObject newInstance(WitsmlServer server,
                                                WitsmlObject parent, XElement element)
         {
             if (server == null)
@@ -114,7 +114,9 @@ namespace witsmllib.v131
                 if (trajectoryReferenceElement != null)
                 {
                     parentTrajectoryName = trajectoryReferenceElement.Value.Trim(); //.getTextTrim();
-                    parentTrajectoryId = trajectoryReferenceElement.Attribute("uidRef").Value;
+                    XAttribute parentTrajectoryAttribute = trajectoryReferenceElement.Attribute("uidRef");
+                    if (parentTrajectoryAttribute != null)
+                        parentTrajectoryId = parentTrajectoryAttribute.Value;
                 }
             }
 
