@@ -1,12 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.IO;
+using System.Xml.Linq;
+using System.Linq;
+
 namespace witsmllib
 {
-
-
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.IO;
-    using System.Xml.Linq;
 
     public enum UomBase
     {
@@ -107,21 +107,17 @@ namespace witsmllib
             }
         }
 
-        /**
-         * Notify listeners about WITSML server access.
-         *
-         * @param wsdlFunction   The WSDL function being called. Non-null.
-         * @param witsmlType     The WITSML type being accessed. Null if not applicable.
-         * @param requestTime    Time of request.
-         * @param request        The request string. Null if not applicable.
-         * @param response       The response string. Null if not applicable or the call
-         *                       failed for some reason.
-         * @param statusCode     The status code from the server. Null if not applicable
-         *                       for the WSDL function.
-         * @param serverMessage  Message from the WITSML server. Null if not supplied or
-         *                       not applicable for the WSDL function.
-         * @param throwable      Exception thrown. Null if none.
-         */
+        /// <summary>
+        /// Notify listeners about WITSML server access.
+        /// </summary>
+        /// <param name="wsdlFunction">The WSDL function being called. Non-null.</param>
+        /// <param name="witsmlType">The WITSML type being accessed. Null if not applicable.</param>
+        /// <param name="requestTime">Time of request.</param>
+        /// <param name="request">The request string. Null if not applicable.</param>
+        /// <param name="response">The response string. Null if not applicable or the call failed for some reason.</param>
+        /// <param name="statusCode">The status code from the server. Null if not applicable for the WSDL function.</param>
+        /// <param name="serverMessage">Message from the WITSML server. Null if not supplied or not applicable for the WSDL function.</param>
+        /// <param name="throwable">Exception thrown. Null if none.</param>
         private void notify(String wsdlFunction,
                             String witsmlType,
                             long requestTime,
@@ -131,7 +127,8 @@ namespace witsmllib
                             String serverMessage,
                             Exception throwable)
         {
-            //Debug.Assert(wsdlFunction != null : "wsdlFunction cannot be null";
+            if (wsdlFunction == null)
+                throw new ArgumentNullException("wsdlFunction cannot be null");
 
             // Create the event
             WitsmlAccessEvent @event = new WitsmlAccessEvent(this,
@@ -144,12 +141,11 @@ namespace witsmllib
                                                             serverMessage,
                                                             throwable);
 
-            foreach (var i in accessListeners)
+            foreach (WeakReference reference in accessListeners)
             {
-                WeakReference/*<WitsmlAccessListener>*/ reference = i;
-                WitsmlAccessListener listener = reference.Target as WitsmlAccessListener;//.get();
+                WitsmlAccessListener listener = reference.Target as WitsmlAccessListener;
                 if (listener == null)
-                    accessListeners.Remove(i); // i.remove();
+                    accessListeners.Remove(reference);
                 //TODO - what does this do
                 //else
                 //    listener.accessPerformed(@event);
@@ -343,7 +339,7 @@ namespace witsmllib
         public List<T> get<T>(WitsmlQuery witsmlQuery) where T : WitsmlObject
         {
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             return get<T>(witsmlQuery, null, null, new String[0]);
         }
@@ -358,7 +354,7 @@ namespace witsmllib
         public List<T> get<T>(WitsmlQuery witsmlQuery, WitsmlObject parent) where T : WitsmlObject
         {
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             return get<T>(witsmlQuery, null, parent);
         }
@@ -373,7 +369,7 @@ namespace witsmllib
         public List<T> get<T>(WitsmlQuery witsmlQuery, params String[] parentIds) where T : WitsmlObject
         {
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             return get<T>(witsmlQuery, null, null, parentIds);
         }
@@ -389,13 +385,13 @@ namespace witsmllib
         public T getOne<T>(T baseClass, WitsmlQuery witsmlQuery, String id) where T : WitsmlObject
         {
             if (baseClass == null)
-                throw new ArgumentException("baseClass cannot be null");
+                throw new ArgumentNullException("baseClass cannot be null");
 
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             if (id == null)
-                throw new ArgumentException("id cannot be null");
+                throw new ArgumentNullException("id cannot be null");
 
             List<T> objects = get<T>(witsmlQuery, id, null, new String[0]);
 
@@ -416,13 +412,13 @@ namespace witsmllib
         public T getOne<T>(WitsmlQuery witsmlQuery, String id, WitsmlObject parent) where T : WitsmlObject
         {
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             if (id == null)
-                throw new ArgumentException("id cannot be null");
+                throw new ArgumentNullException("id cannot be null");
 
             if (parent == null)
-                throw new ArgumentException("parent cannot be null");
+                throw new ArgumentNullException("parent cannot be null");
 
             List<T> objects = get<T>(witsmlQuery, id, parent);
 
@@ -443,13 +439,13 @@ namespace witsmllib
         public T getOne<T>(WitsmlQuery witsmlQuery, String id, params String[] parentIds) where T : WitsmlObject
         {
             if (witsmlQuery == null)
-                throw new ArgumentException("witsmlQuery cannot be null");
+                throw new ArgumentNullException("witsmlQuery cannot be null");
 
             if (id == null)
-                throw new ArgumentException("id cannot be null");
+                throw new ArgumentNullException("id cannot be null");
 
             if (parentIds == null)
-                throw new ArgumentException("parentIds cannot be null");
+                throw new ArgumentNullException("parentIds cannot be null");
 
             List<T> objects = get<T>(witsmlQuery, id, null, parentIds);
 
@@ -459,67 +455,20 @@ namespace witsmllib
             return objects == null || objects.Count > 0 ? default(T) : objects[0];
         }
 
-        /**
-         * Return the actual (i.e. version specific) class of the given WITSML type.
-         *
-         * @param version  Version to consider. Non-null.
-         * @param type     WITSML type to find class of. Non-null.
-         * @return         The actual class. Never null.
-         */
-        //  @SuppressWarnings("unchecked")
-        //private static Class<? extends WitsmlObject> getActualClass(WitsmlVersion version, String type) {
-        //    //Debug.Assert(version != null : "version cannot be null";
-        //    //Debug.Assert(type != null : "type cannot be null";
 
-        //    String className = null;
-
-        //    try {
-        //        className = WitsmlObject.class.getPackage().getName() +
-        //                    "." +
-        //                    "v" + version.getVersion().replace(".", "") +
-        //                    "." +
-        //                    "Witsml" +
-        //                    type.substring(0, 1).toUpperCase() +
-        //                    type.substring(1);
-
-        //        return (Class<? extends WitsmlObject>) Class.forName(className);
-        //    }
-        //    catch (ClassNotFoundException exception) {
-        //        //Debug.Assert(false : "Invalid type: " + className;
-        //        return null;
-        //    }
-        //}
-        private static /*object*/ Type getActualClass(WitsmlVersion version, String type)
+        /// <summary>
+        /// Return the actual (i.e. version specific) class of the given WITSML type.
+        /// </summary>
+        /// <param name="version">Version to consider. Non-null.</param>
+        /// <param name="type">WITSML type to find class of. Non-null.</param>
+        /// <returns>The actual class. Never null.</returns>
+        private static Type getActualClass(WitsmlVersion version, String type)
         {
-            //Debug.Assert(version != null : "version cannot be null";
-            //Debug.Assert(type != null : "type cannot be null";
+            string nspace = "v" + version.getVersion().Replace(".", "");
+            List<Type> AvailableClasses = Assembly.GetExecutingAssembly().GetTypes().Where(x => x.Namespace.Contains(nspace)).ToList();
+            Type fountClass = AvailableClasses.Where(x => x.Name.ToLower().Contains(type.ToLower())).FirstOrDefault() ;
 
-            try
-            {
-                String className = typeof(WitsmlObject).Namespace.ToString()
-                    + ".v" + version.getVersion().Replace(".", "")
-                    + ".Witsml" + type.Substring(0, 1).ToUpper() + type.Substring(1);
-                //return Activator.CreateInstance(Type.GetType(className));// as WitsmlObject;
-                return Type.GetType(className);
-
-            }
-
-            //try {
-            //    className = WitsmlObject.class.getPackage().getName() +
-            //                "." +
-            //                "v" + version.getVersion().Replace(".", "") +
-            //                "." +
-            //                "Witsml" +
-            //                type.substring(0, 1).toUpperCase() +
-            //                type.substring(1);
-
-            //    return (Class<? extends WitsmlObject>) Class.forName(className);
-            //}
-            catch (NotSupportedException exception)
-            {// ClassNotFoundException exception) {
-                //Debug.Assert(false : "Invalid type: " + className;
-                return null;
-            }
+            return fountClass;
         }
 
         /// <summary>
@@ -530,7 +479,8 @@ namespace witsmllib
         private static String[] getIds(WitsmlObject instance)
         {
             if (instance == null)
-                throw new ArgumentException("instance cannot be null");
+                throw new ArgumentNullException("instance cannot be null");
+
             List<String> ids = new List<String>();
 
             WitsmlObject p = instance;
@@ -762,7 +712,7 @@ namespace witsmllib
                 if (element != null)
                 {
                     MethodInfo updateMethod = witsmlObject.GetType().GetMethod("update");//.getClass().getDeclaredMethod("update",
-                    
+
                     //Element.class);
                     //updateMethod.setAccessible(true);
 

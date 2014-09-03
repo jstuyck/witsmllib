@@ -100,16 +100,17 @@ namespace witsmllib.v120
             return query;
         }
 
-        /**
-         * Parse the specified DOM element and instantiate the properties
-         * of this instance.
-         *
-         * @param element  XML element to parse. Non-null.
-         */
+        /// <summary>
+        /// Parse the specified DOM element and instantiate the properties
+        /// of this instance.
+        /// </summary>
+        /// <param name="element">XML element to parse. Non-null.</param>
         private void update(XElement element)
         {
-            //Debug.Assert(element != null : "element cannot be null";
-
+            if (element == null)
+                throw new ArgumentNullException("element cannot bt null");
+            
+       
             parentTargetId = XmlUtil.update(element, "uidTargetParent", parentTargetId);
             dispNsCenter = XmlUtil.update(element, "dispNsCenter", dispNsCenter);
             dispEwCenter = XmlUtil.update(element, "dispEwCenter", dispEwCenter);

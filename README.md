@@ -3,6 +3,17 @@ witsmllib
 
 Witsml client lib in C#
 
+This lib is still under heavy development, contributors are welcome.
+
+This lib is tested with :
+	- Schlumberger Interact webservices.
+	- Kongsberg
+	- more to come.
+
+
+This library will support :
+	- Witsml version 1.2, 1.3.1, 1.4.1
+
 
 License :
 
@@ -35,4 +46,5 @@ and retains the Apache 2.0 open source license used by the jwitsml project.
 	|	WitsmlTrajectoryStation		|  R   |
 	|	WitsmlWell					|  R   |
 	|	WitsmlWellbore				|  R   |
+	|	WitsmlWellboreGeometry		|  R   |
 	
