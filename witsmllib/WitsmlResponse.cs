@@ -1,18 +1,5 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+using System;
 
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 namespace witsmllib
 {
 
@@ -22,61 +9,67 @@ namespace witsmllib
      *
      * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
      */
-    using System;
-    sealed class WitsmlResponse
+
+    public sealed class WitsmlResponse
     {
-        /** The actual response string. May be null if nothing is returned for some reson. */
-        private  String response;
+        
+        private String response;        // The actual response string. May be null if nothing is returned for some reson. 
+        private int? statusCode;        // The status code. Null if not applicable for a given WSDL function. 
+        private String serverMessage;   // Any server message. Null if not applicable or not provided.
+        private long responseTime;     // Time taken by the server to responde.
 
-        /** The status code. Null if not applicable for a given WSDL function. */
-        private  Int32? statusCode;
+       
 
-        /** Any server message. Null if not applicable or not provided. */
-        private  String serverMessage;
-
-        /**
-         * Create a WITSML response instance.
-         *
-         * @param response       The response string. May be null.
-         * @param statusCode     Status code if applicable. May be null.
-         * @param serverMessage  Any server message. May be null.
-         * @return
-         */
-        internal WitsmlResponse(String response, Int32? statusCode, String serverMessage)
+        /// <summary>
+        /// Create an instance of the Object WitsmlResponse
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="statusCode"></param>
+        /// <param name="serverMessage"></param>
+        internal WitsmlResponse(string response, int? statusCode, string serverMessage)
         {
             this.response = response;
             this.statusCode = statusCode;
             this.serverMessage = serverMessage;
         }
 
-        /**
-         * Return the actual response.
-         *
-         * @return Actual response. May be null.
-         */
-        internal String getResponse()
+        /// <summary>
+        /// Get the server response string. Typically an XML response, but this may depend on the WSDL function being called. 
+        /// </summary>
+        /// <returns>The WITSML response. Null if not applicable for the WSDL function being called, or the operation failed for some reason.</returns>
+        internal string getResponse()
         {
             return response;
         }
 
-        /**
-         * Return the WSDL function status code.
-         *
-         * @return  The WSDL function status code. May be null.
-         */
-        internal Int32? getStatusCode()
+        /// <summary>
+        /// Return the status code defined by the WSDL function. 
+        /// </summary>
+        /// <returns>The status code defined by most WSDL functions. Null if not applicable for the WSDL function being called.</returns>
+        internal int? getStatusCode()
         {
             return statusCode;
         }
 
-        /**
-         * Return any server message.
-         *
-         * @return  Any WITSML server message. May be null.
-         */
-        internal String getServerMessage()
+        /// <summary>
+        /// Return the WITSML server message supplied with the response. 
+        /// </summary>
+        /// <returns>The WITSML server message. Null if none supplied or if not applicable for the WSDL function being called.</returns>
+        internal string getServerMessage()
         {
             return serverMessage;
         }
+
+        /// <summary>
+        /// Return the response time. I.e. the time from the request was sent to the WITSML server until the response was available at the client. 
+        /// </summary>
+        /// <returns>The response time in milliseconds. >= 0.</returns>
+        internal long getResponseTime()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
     }
 }

@@ -700,6 +700,7 @@ namespace witsmllib
                        response.getStatusCode(),
                        response.getServerMessage(),
                        null);
+                
 
                 //
                 // Build DOM document from response

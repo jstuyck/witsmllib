@@ -122,6 +122,7 @@
     <Compile Include="witsmllib\WitsmlQuery.cs" />
     <Compile Include="witsmllib\WitsmlRealtime.cs" />
     <Compile Include="witsmllib\WitsmlRealtimeChannel.cs" />
+    <Compile Include="witsmllib\WitsmlRequest.cs" />
     <Compile Include="witsmllib\WitsmlResponse.cs" />
     <Compile Include="witsmllib\WitsmlRig.cs" />
     <Compile Include="witsmllib\WitsmlRisk.cs" />
