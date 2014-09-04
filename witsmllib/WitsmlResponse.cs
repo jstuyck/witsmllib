@@ -26,11 +26,12 @@ namespace witsmllib
         /// <param name="response"></param>
         /// <param name="statusCode"></param>
         /// <param name="serverMessage"></param>
-        internal WitsmlResponse(string response, int? statusCode, string serverMessage)
+        internal WitsmlResponse(string response, int? statusCode, string serverMessage, long responseTime)
         {
             this.response = response;
             this.statusCode = statusCode;
             this.serverMessage = serverMessage;
+            this.responseTime = responseTime;
         }
 
         /// <summary>
