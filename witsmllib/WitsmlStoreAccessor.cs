@@ -1,19 +1,10 @@
-/*
-nwitsml Copyright 2010 Setiri LLC
-Derived from the jwitsml project, Copyright 2010 Statoil ASA
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
+using System;
 using System.Runtime.CompilerServices;
+using System.Net;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+
+
 namespace witsmllib
 {
 
@@ -72,10 +63,7 @@ namespace witsmllib
      *
      * @author <a href="mailto:info@nwitsml.org">NWitsml</a>
      */
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Net;
-    using System.Diagnostics;
+    
     sealed class WitsmlStoreAccessor
     { // : Stub {
 
@@ -101,20 +89,23 @@ namespace witsmllib
         internal void setTimeout(int timeout) { cachedTimeout = timeout; }
         internal string getUsername() { return cachedUsername; }
 
-        /**
-         * Create an accessor for the specified WITSML server.
-         *
-         * @param url                 URL to server. Non-null.
-         * @param userName            User name for server login. Non-null.
-         * @param password            Password for server login. Non-null.
-         * @param clientCapabilitiesXml  Description of client capabilities. Non-null.
-         */
-        internal WitsmlStoreAccessor(string /*URL*/ url, String userName, String password, String clientCapabilitiesXml)
+        /// <summary>
+        /// Create an accessor for the specified WITSML server.
+        /// </summary>
+        /// <param name="url">URL to server. Non-null.</param>
+        /// <param name="userName">User name for server login. Non-null.</param>
+        /// <param name="password">Password for server login. Non-null.</param>
+        /// <param name="clientCapabilitiesXml"></param>
+        internal WitsmlStoreAccessor(string url, String userName, String password, String clientCapabilitiesXml)
         {
-            //Debug.Assert(url != null : "url cannot be null";
-            //Debug.Assert(userName != null : "userName cannot be null";
-            //Debug.Assert(password != null : "password cannot be null";
-            //Debug.Assert(clientCapabilitiesXml != null : "clientCapabilitiesXml cannot be null";
+            if (url == null)
+                throw new ArgumentNullException("url cannot be null");
+            if (userName == null)
+                throw new ArgumentNullException("userName cannot be null");
+            if (password == null)
+                throw new ArgumentNullException("password cannot be null");
+            if (clientCapabilitiesXml == null)
+                throw new ArgumentNullException("clientCapabilitiesXml cannot be null");
 
             cachedEndpoint = url;
             cachedUsername = userName;
