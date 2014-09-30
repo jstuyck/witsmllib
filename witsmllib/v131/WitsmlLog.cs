@@ -90,6 +90,8 @@ namespace witsmllib.v131
                            "       uidWellbore = \"" + uidWellbore + "\"" +
                            "       uid = \"" + id + "\">" +
                            "    <name/>" +
+                           "    <nameWell/>" +
+                           "    <nameWellbore/>" +
                            "    <objectGrowing/>" +
                            "    <dataRowCount/>" +
                            "    <serviceCompany/>" +
@@ -99,24 +101,24 @@ namespace witsmllib.v131
                            "    <creationDate/>" +
                            "    <description/>" +
                            "    <indexType/>" +
-                           "    <startIndex uom=\"" + WitsmlServer.distUom+"\"/>" +
-                           "    <endIndex uom=\"" + WitsmlServer.distUom+"\"/>" +
+                           "    <startIndex uom=\"" + WitsmlServer.distUom + "\"/>" +
+                           "    <endIndex uom=\"" + WitsmlServer.distUom + "\"/>" +
                            "    <indexCurve/>" +
                            "    <startDateTimeIndex/>" +
                            "    <endDateTimeIndex/>" +
                            "    <stepIncrement/>" +
                            "    <direction/>" +
-                           "    <indexCurve/>" +
                            "    <nullValue/>" +
                            "    <logParam/>" +
                            WitsmlLogCurve.getQuery() +
-                           "    <logData>" +
-                           "      <data/>" +
-                           "    </logData>" +
+                           //Not supported for this object
+                           //"    <logData>" +
+                           //"      <data/>" + 
+                           //"    </logData>" +
                            WitsmlCommonData.getQuery() +
                            "  </log>" +
                            "</logs>";
-
+       
             return query;
         }
 
