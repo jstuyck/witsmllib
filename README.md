@@ -14,15 +14,11 @@ This lib is tested with :
 This library will support :
 	- Witsml version 1.2, 1.3.1, 1.4.1
 
-
 License :
 
 Setiri LLC has released nWitsml, an open source WITSML client library for .Net. 
 The project is a port of the jwitsml.org project from Java to .Net, 
 and retains the Apache 2.0 open source license used by the jwitsml project.
-
-
-
 
 	
 	|	Class						| CRUD |
