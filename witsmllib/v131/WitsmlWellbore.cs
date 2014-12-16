@@ -22,15 +22,14 @@ namespace witsmllib.v131
         
             :base(server, id, name, parent, parentId)
         {}
-
-        /**
-         * Factory method for this type.
-         *
-         * @param server   Server the new instance lives within. Non-null.
-         * @param parent   Parent instance. May be null.
-         * @param element  XML element to create instance from. Non-null.
-         * @return         New WITSML wellbore instance. Never null.
-         */
+       
+        /// <summary>
+        /// Factory method for this type.
+        /// </summary>
+        /// <param name="server">Server the new instance lives within. Non-null.</param>
+        /// <param name="parent">Parent instance. May be null.</param>
+        /// <param name="element">XML element to create instance from. Non-null.</param>
+        /// <returns>New WITSML wellbore instance. Never null.</returns>
         static WitsmlObject newInstance(WitsmlServer server, WitsmlObject parent,
                                         XElement element)
         {
@@ -47,15 +46,12 @@ namespace witsmllib.v131
             return wellbore;
         }
 
-        /**
-         * Return complete XML query for this type.
-         *
-         * @param id        ID of instance to get. May be empty to indicate all.
-         *                  Non-null.
-         * @param parentId  Parent IDs. Closest first. May be empty if instances
-         *                  are accessed from the root. Non-null.
-         * @return          XML query. Never null.
-         */
+        /// <summary>
+        /// Return complete XML query for this type.
+        /// </summary>
+        /// <param name="id">ID of instance to get. May be empty to indicate all. Non-null</param>
+        /// <param name="parentId">Parent IDs. Closest first. May be empty if instances are accessed from the root. Non-null.</param>
+        /// <returns>XML query. Never null.</returns>
         static String getQuery(String id, params String[] parentId)
         {
             //Debug.Assert(id != null : "id cannot be null";
@@ -95,12 +91,10 @@ namespace witsmllib.v131
             return query;
         }
 
-        /**
-         * Parse the specified DOM element and instantiate the properties
-         * of this instance.
-         *
-         * @param element  XML element to parse. Non-null.
-         */
+        /// <summary>
+        /// Parse the specified DOM element and instantiate the properties of this instance.
+        /// </summary>
+        /// <param name="element">XML element to parse. Non-null.</param>
         void update(XElement element)
         {
             //Debug.Assert(element != null : "element cannot be null";

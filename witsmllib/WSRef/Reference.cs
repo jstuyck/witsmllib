@@ -275,7 +275,7 @@ namespace WMLS131
         }
 
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.witsml.org/action/120/Store.WMLS_GetFromStore", RequestNamespace = "http://www.witsml.org/message/120", ResponseNamespace = "http://www.witsml.org/message/120")]
+        [System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.witsml.org/action/120/Store.WMLS_GetFromStore", RequestNamespace = "http://www.witsml.org/message/120", ResponseNamespace = "http://www.witsml.org/message/120")]     
         [return: System.Xml.Serialization.SoapElementAttribute("Result")]
         public short WMLS_GetFromStore(string WMLtypeIn, string QueryIn, string OptionsIn, string CapabilitiesIn, out string XMLout, out string SuppMsgOut)
         {

@@ -143,7 +143,14 @@ namespace witsmllib.v131
             timeZone = XmlUtil.update(element, "timeZone", timeZone);
             @operator = XmlUtil.update(element, "operator", @operator);
             operatorDivision = XmlUtil.update(element, "operatorDiv", operatorDivision);
-            operatorInterestShare = XmlUtil.update(element, "pcInterest", operatorInterestShare);
+            try
+            {
+                operatorInterestShare = XmlUtil.update(element, "pcInterest", operatorInterestShare);
+            }
+            catch (Exception e)
+            {
+
+            }
             apiNumber = XmlUtil.update(element, "numAPI", apiNumber);
             status = XmlUtil.update(element, "statusWell", status);
             purpose = XmlUtil.update(element, "purposeWell", purpose);

@@ -116,9 +116,10 @@ namespace witsmllib
 
             service = new WMLS131.WMLS();
             service.Url = cachedEndpoint;
-            service.Timeout = cachedTimeout;
+            service.Timeout = cachedTimeout;            
             service.Credentials = new NetworkCredential(cachedUsername, cachedPassword);
-
+            
+            
             //setPortName("StoreSoapPort");
         }
 
@@ -325,8 +326,8 @@ namespace witsmllib
             Stopwatch sWatch = new Stopwatch();
 
             string responseXml, message;
-            sWatch.Start();
-            short statusCode = service.WMLS_GetFromStore(wmlType, queryXml, "", "", out responseXml, out message);
+            sWatch.Start();           
+            short statusCode = service.WMLS_GetFromStore(wmlType, queryXml, "", "", out responseXml, out message);           
             sWatch.Stop();
 
             //// The WITSML command string

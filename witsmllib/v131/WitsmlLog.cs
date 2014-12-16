@@ -110,7 +110,7 @@ namespace witsmllib.v131
                            "    <direction/>" +
                            "    <nullValue/>" +
                            "    <logParam/>" +
-                           WitsmlLogCurve.getQuery() +
+                           WitsmlLogCurve.getQuery() + 
                            //Not supported for this object
                            //"    <logData>" +
                            //"      <data/>" + 

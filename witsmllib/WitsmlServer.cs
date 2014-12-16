@@ -565,7 +565,7 @@ namespace witsmllib
                        null);
 
                 // If nothing was returned we leave here
-                if (responseXml.Length == 0)
+                if (responseXml == null || responseXml.Length == 0)
                     return instances;
 
                 //
