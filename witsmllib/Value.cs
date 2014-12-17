@@ -45,7 +45,7 @@ namespace witsmllib
         /// </summary>
         /// <param name="v">Value to compare to. Non-null.</param>
         /// <returns>A negative integer, zero, or a positive integer as this object is less than,
-        /// qual to, or greater than the specified object.</returns>
+        /// equal to, or greater than the specified object.</returns>
         public int CompareTo(Value v)
         {
             if (v == null)
