@@ -104,7 +104,7 @@ namespace witsmllib.v131
         void update(XElement element)
         {           
             if (element == null)
-                throw new ArgumentException("element cannot be null");
+                throw new ArgumentNullException("element cannot be null");
 
             legalName = XmlUtil.update(element, "nameLegal", legalName);
             licenseNumber = XmlUtil.update(element, "numLicense", licenseNumber);

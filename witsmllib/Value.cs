@@ -38,23 +38,22 @@ namespace witsmllib
             return unit;
         }
 
-        /**
-         * Compare this value to the specified value. Ordering follows
-         * the natural order of the number of the instances. Instances
-         * of null value are ordered after those without null.
-         *
-         * @param v  Value to compare to. Non-null.
-         * @return   A negative integer, zero, or a positive integer as
-         *           this object is less than,
-         *           equal to, or greater than the specified object.
-         * @throws IllegalArgumentEAxception  If v is null.
-         */
+        /// <summary>
+        /// Compare this value to the specified value. 
+        /// Ordering follows the natural order of the number of the instances. 
+        /// Instances of null value are ordered after those without null.
+        /// </summary>
+        /// <param name="v">Value to compare to. Non-null.</param>
+        /// <returns>A negative integer, zero, or a positive integer as this object is less than,
+        /// qual to, or greater than the specified object.</returns>
         public int CompareTo(Value v)
         {
-            Double v1 = value.HasValue ? value.Value : Double.MaxValue; //.MAX_VALUE;
-            Double v2 = v.value.HasValue ? v.value.Value : Double.MaxValue; //.MAX_VALUE;
+            if (v == null)
+                throw new ArgumentNullException("v cannot be null.");
+            Double v1 = value.HasValue ? value.Value : Double.MaxValue;
+            Double v2 = v.value.HasValue ? v.value.Value : Double.MaxValue; 
 
-            return v1.CompareTo(v2); //.compareTo(v2);
+            return v1.CompareTo(v2); 
         }
 
        
