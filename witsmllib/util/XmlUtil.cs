@@ -44,16 +44,16 @@ namespace witsmllib.util
          *                                    schemaFile doesnt exist.
          */
         public static void validate(String xml, string schemaFilePath)
-        { //throws SAXException {
+        { 
 
             if (xml == null)
-                throw new ArgumentException("xml cannot be null");
+                throw new ArgumentNullException("xml cannot be null");
 
             if (schemaFilePath == null)
-                throw new ArgumentException("schemaFile cannot be null");
+                throw new ArgumentNullException("schemaFile cannot be null");
 
             if (!File.Exists(schemaFilePath))
-                throw new ArgumentException("file doesn't exist: " + schemaFilePath);
+                throw new FileNotFoundException("file " + schemaFilePath + " doesn't exist: " + schemaFilePath);
 
             // Parse the XML string into a DOM tree.
             XDocument document = newDocument(xml);
@@ -118,7 +118,7 @@ namespace witsmllib.util
         public static String prettyPrint(String xml)
         {
             if (xml == null)
-                throw new ArgumentException("xml cannot be null");
+                throw new ArgumentNullException("xml cannot be null");
             XDocument x = XDocument.Parse(xml);
             
             return x.ToString();
