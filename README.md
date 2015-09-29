@@ -1,6 +1,8 @@
 witsmllib
 =========
 
+[![Build Status](https://travis-ci.org/jstuyck/witsmllib.svg?branch=master)](https://travis-ci.org/jstuyck/witsmllib)
+
 Witsml client lib in C#
 
 This lib is still under heavy development, contributors are welcome.
