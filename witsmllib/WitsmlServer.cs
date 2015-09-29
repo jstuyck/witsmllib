@@ -506,6 +506,8 @@ namespace witsmllib
                                 String id, WitsmlObject parent,
                                 params String[] parentIds) where T : WitsmlObject
         {
+            
+
             if (witsmlQuery == null)
                 throw new ArgumentException("witsmlQuery cannot be null");
 
@@ -533,12 +535,11 @@ namespace witsmllib
             String responseXml = null;
 
             String type = WitsmlServer.getWitsmlType(typeof(T));
-
+           
             var actualClass = getActualClass(version, type);
 
             try
             {
-
                 var getQueryMethod = actualClass.GetMethod("getQuery", BindingFlags.NonPublic | BindingFlags.Static);
                 queryXml = (string)getQueryMethod.Invoke(null, new object[] { actualId, parentId });
                 //// Find the getQuery() method
@@ -551,7 +552,7 @@ namespace witsmllib
                 //queryXml = (String) getQueryMethod.invoke(null, actualId, parentId);
 
                 //// Apply nodifications as specified by the WitsmlQuery instance
-
+                
                 queryXml = witsmlQuery.apply(queryXml);
 
                 // Send the query to the WITSML server and pick the response

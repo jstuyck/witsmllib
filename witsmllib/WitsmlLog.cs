@@ -6,8 +6,6 @@ using witsmllib.util;
 
 namespace witsmllib
 {
-
-   
     public class WitsmlLog : WitsmlObject
     {
 
@@ -38,9 +36,9 @@ namespace witsmllib
 
         protected WitsmlLog(WitsmlServer server, String id, String name,
                             WitsmlObject parent, String parentId)
-        
-            :base(server, WITSML_TYPE, id, name, parent, parentId)
-        {}
+
+            : base(server, WITSML_TYPE, id, name, parent, parentId)
+        { }
 
         public Boolean? isGrowing()
         {
@@ -123,7 +121,7 @@ namespace witsmllib
             //
             if (indexType.ToLower().Contains("time"))
             {
-                DateTime?  v = XmlUtil.getTime(indexString);
+                DateTime? v = XmlUtil.getTime(indexString);
                 if (v != null)
                     return v;
             }
@@ -136,7 +134,7 @@ namespace witsmllib
                 try
                 {
                     //double v = 
-                        return Double.Parse(indexString);
+                    return Double.Parse(indexString);
                     //return Double.valueOf(v);
                 }
                 catch (FormatException exception)
@@ -202,20 +200,18 @@ namespace witsmllib
             return unitNamingSystem;
         }
 
-        /**
-         * Get comment of this log.
-         * @see <a href="http://www.witsml.org">www.witsml.org</a>
-         *
-         * @return  Comment of this log.
-         */
+        /// <summary>
+        /// Get comment of this log.
+        /// </summary>
+        /// <returns>Comment of this log.</returns>
         public String getComment()
         {
             return comment;
         }
 
-       /// <summary>
+        /// <summary>
         /// Return the curves of this log. In the returned list the curves are organized by their curveNo (columnIndex), lowest index first. 
-       /// </summary>
+        /// </summary>
         /// <returns>The curves of this log. Never null.</returns>
         public List<WitsmlLogCurve> getCurves()
         {
@@ -250,7 +246,7 @@ namespace witsmllib
         /// <returns>Requested curve (or null if not found).</returns>
         public WitsmlLogCurve findCurve(String curveName)
         {
-            return this.curves.Where(x => x.getName().Equals(curveName)).FirstOrDefault();        
+            return this.curves.Where(x => x.getName().Equals(curveName)).FirstOrDefault();
         }
 
         /// <summary>
@@ -260,14 +256,14 @@ namespace witsmllib
         /// <returns></returns>
         protected WitsmlLogCurve findCurve(int curveNo)
         {
-           
+
             foreach (WitsmlLogCurve logCurve in this.curves)
             {
                 if (logCurve.getCurveNo() == curveNo)
                     return logCurve;
             }
 
-            // Not found
+          
             return null;
         }
 

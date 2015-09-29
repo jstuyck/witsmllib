@@ -1,9 +1,10 @@
 using System;
-using System.IO;
-using System.Text;
 using System.Collections.Generic;
-using witsmllib.util;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Xml.Linq;
+using witsmllib.util;
 
 namespace witsmllib
 {
@@ -107,13 +108,19 @@ namespace witsmllib
                 throw new ArgumentException("root cannot be null");
             if (name == null)
                 throw new ArgumentException("name cannot be null");
-           
-            foreach (XElement element in root.Descendants())
-            {
-                if (element.Name.Equals(name))
-                    return element;
-            }
-            return null;
+
+            XElement elmt = root.Descendants().Where(x => x.Name.LocalName == name).FirstOrDefault();
+
+
+
+
+
+            //foreach (XElement element in root.Descendants())
+            //{
+            //    if (element.Name.LocalName.Equals(name))
+            //        return element;
+            //}
+            return elmt;
         }
 
         /// <summary>
@@ -263,16 +270,16 @@ namespace witsmllib
             }
         }
 
-        /**
-         * Apply the given restrictions to the specified XML.
-         *
-         * @param queryXml  XML to apply restrictions to. Non-null.
-         * @return          A (possibly) modified XML. null if
-         *                  the parse process failed for some reason.
-         */
+        /// <summary>
+        /// Apply the given restrictions to the specified XML.
+        /// </summary>
+        /// <param name="queryXml">XML to apply restrictions to. Non-null.</param>
+        /// <returns>A (possibly) modified XML. null if the parse process failed for some reason.</returns>
         internal String apply(String queryXml)
         {
-            //Debug.Assert(queryXml != null : "queryXml cannot be null";
+            if (queryXml == null)
+                throw new ArgumentNullException("queryXml cannot be null");
+
 
             // Make a DOM tree of the XML
             //SAXBuilder builder = new SAXBuilder();
@@ -283,9 +290,12 @@ namespace witsmllib
                 XElement root = document.Root;
 
                 // Modify the DOM tree according to inclusions/exclusions and constraints
-                applyInclusions(root);
-                applyElementConstraints(root);
-                applyAttributeConstraints(root);
+                if (includedElements.Count != 0)
+                    applyInclusions(root);
+                if (elementConstraints.Count != 0)
+                    applyElementConstraints(root);
+                if (attributeConstraints.Count != 0)
+                    applyAttributeConstraints(root);
 
                 // Convert back to an XML string
                 String xml = root.ToString(); // (new XMLOutputter()).outputString(root.getDocument());
